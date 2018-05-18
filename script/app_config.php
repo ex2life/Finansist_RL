@@ -1,19 +1,16 @@
 <?php
+// Настройка кодировки и уровня обработки ошибок
+mb_internal_encoding("UTF-8");
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
+// Параметры подключения к БД
 require_once 'connection_params.php';
+// Служебные функции
+require_once 'finansist_scripts.php';
 
-//echo MYSQL_DB;
 
-function db_connect(){
-	$mysqli = @new mysqli(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
-	
-	if ($mysqli->connect_errno) {
-		exit("Ошибка при подключении к БД: ".$mysqli->connect_error);
-	}	
-	
-    if (!$mysqli->set_charset("utf8")){
-        printf("Error: ".$mysqli->error);
-    }
-    
-   return $mysqli; 
-}
-?>
+// Защита от xss
+$request = xss($_REQUEST);
+$post = xss($_POST);
+$get = xss($_GET);

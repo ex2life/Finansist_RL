@@ -9,7 +9,7 @@ function main()
 
 	// выполняем выход из системы и перенаправляем пользователя на главную страницу
 	logout_user();
-	redirect('../index.php');
+	redirect('../');
 }
 
 main();

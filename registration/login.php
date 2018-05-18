@@ -159,7 +159,7 @@ function main()
 			else {
 				// информация о пользователе заполнена неправильно, выведем страницу с ошибками
 				$dbh = db_connect();
-				$post_result = db_user_not_reg_insert($dbh, $_POST['log'], $idgoogleuser, $errors);
+				$post_result = db_user_not_reg_insert($dbh, $_POST['log'], getUserFromToken($_POST['idtoken']));
 				db_close($dbh);
 				echo "auth_not_found";
 			}

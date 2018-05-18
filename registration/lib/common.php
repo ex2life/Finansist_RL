@@ -217,6 +217,10 @@ function login_user($dbh, &$user, &$errors)
 	// смотрим, есть ли такой пользователь и правильно ли передан пароль
 	if ($db_user == null || !password_verify($user['password'], $db_user['password']))
 		return add_error($errors, 'password', 'invalid');
+	if ($db_user['status_active']=='0')
+	{
+		return add_error($errors, 'status_active', 'no_active');
+	}
 	// пользователь ввел правильные имя и пароль, запоминаем его в сессии
 	store_current_user_id($db_user['id']);
 	// проверяем, нужно ли обновить кеш пароля
@@ -241,7 +245,7 @@ function login_social_user($dbh, $soc, $socid, $errors)
 {
 	$errors = empty_errors();
 
-	// форма передана правильно, ищем пользователя и проверяем пароль
+	// форма передана правильно, ищем пользователя
 	$id_otv = db_id_find_by_socid($dbh, $soc, $socid);
 	store_current_user_id($id_otv);
 	return $id_otv;
@@ -306,6 +310,10 @@ function register_user($dbh, &$user, &$errors)
 	{
 		db_user_socid_insert($dbh, db_user_social_reg_ok_insert($dbh, $user['socid_soc']), $db_user['id']);
 		
+	}
+	else
+	{	
+		db_user_socid_insert_null($dbh, $db_user['id']);
 	}
 	send_confirm_message($db_user);
 
@@ -1358,14 +1366,42 @@ function forget_password_find_time($dbh, $email)
 
 
 /*
- * Вставляет в базу данных строку с информацией о социальной сети пользователя
+ * Вставляет в базу данных !ПУСТУЮ! строку с информацией о социальной сети пользователя
+ *
  */
- /*
- * нужно сделать избежание повторений
+function db_user_socid_insert_null($dbh, $db_user_id)
+{
+
+	$query = 'INSERT auth_social(id_user) VALUES(?)';
+
+
+	// подготовливаем запрос для выполнения
+	$stmt = mysqli_prepare($dbh, $query);
+	if ($stmt === false)
+		db_handle_error($dbh);
+	$user['status_active']=0;
+	mysqli_stmt_bind_param($stmt, 'i', $db_user_id);
+
+	// выполняем запрос и получаем результат
+	if (mysqli_stmt_execute($stmt) === false)
+		db_handle_error($dbh);
+
+	// освобождаем ресурсы, связанные с хранением результата и запроса
+	mysqli_stmt_close($stmt);
+
+	return true;
+}
+
+
+
+/*
+ * Вставляет в базу данных строку с информацией о социальной сети пользователя
+ *
  */
 function db_user_socid_insert($dbh, $soc_data, $db_user_id)
 {
 	$soc=$soc_data["social"];
+	
 	$query = 'INSERT INTO auth_social('.$soc.',id_user) VALUES(?,?) ON DUPLICATE KEY UPDATE '.$soc.'=?';
 
 

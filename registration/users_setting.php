@@ -1,6 +1,7 @@
 <?php
-
-require('lib/common.php');
+include_once '..\registration\header_login_session.php';
+include_once '..\registration\header_login.php';
+//require('lib/common.php');
 require_once '../libs/google-api-php-client/vendor/autoload.php'; 
 
 function is_postback($type)

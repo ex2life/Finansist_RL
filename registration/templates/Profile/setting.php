@@ -1,3 +1,5 @@
+<?php include_once '..\registration\header_login_session.php'?>
+<?php include_once '..\registration\header_login.php'?>
 <!DOCTYPE html>
 <script type="text/javascript" src="//vk.com/js/api/openapi.js?152"></script>
 <script type="text/javascript">
@@ -86,14 +88,6 @@
 	
   <body  onload="checkTelegramStatus()">
   	<div class="container">
-	    <div align="right" style="margin-right:5%" class="wrapper">
-			<a href="../" class="btn btn-default">Главная</a>
-			<a href="#" class="btn btn-default">Мои компании</a>
-			<div class="btn-group">
-			  <a href="#" title="Настройки профиля" class="btn btn-default"><?= $user['fullname'] ?></a>
-			  <a href="../registration/logout.php" title="Выход" class="btn btn-default"><img width="20" height="20" src="../img/Out.png"></a>
-			</div>
-		</div>
 		<header class="header">
 			<center><h1>Настройки профиля</h1></center>
 		</header>

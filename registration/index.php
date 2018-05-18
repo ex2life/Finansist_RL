@@ -24,7 +24,7 @@ function main()
 	$user_list = db_user_find_all($dbh);
 	$current_user = db_user_find_by_id($dbh, get_current_user_id());
 
-    redirect('../index.php');
+    redirect('../');
 	// закрываем соединение с базой данных
 	db_close($dbh);
 }

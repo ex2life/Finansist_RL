@@ -3,12 +3,12 @@
 //**********************************************************************************************
 function Make_flex_payment_schedule() {
 	var col_month = $.trim($("#col_month").val());
-	col_month = parseInt(col_month, 10);
-	var str_date = $.trim($("#str_beg_date").val()),
-		str_month = str_date.substr(0,2),
-		str_year = str_date.substr(3,4);
-	var month = parseInt(str_month, 10),
-		year = parseInt(str_year, 10);
+	    col_month = parseInt(col_month, 10);
+	var str_date  = $.trim($("#str_beg_date").val()),
+	    str_month = str_date.substr(0,2),
+	    str_year  = str_date.substr(3,4);
+	var month     = parseInt(str_month, 10),
+	    year      = parseInt(str_year, 10);
 		
 	//Начинаем платить со следующего месяца после взятия кредита
 	if (month == 12) {
@@ -20,9 +20,9 @@ function Make_flex_payment_schedule() {
 	
 	var str_html = "<div></div>";
 	for (var i = 1; i <= col_month; i++) {
-		str_month = (month < 10) ? "0" + month : month.toString();
-		str_date = str_month + '.' + year;
-		str_html += '<div><label class="control-label">Гашение ' + str_date;
+		str_month  = (month < 10) ? "0" + month : month.toString();
+		str_date   = str_month + '.' + year;
+		str_html  += '<div><label class="control-label">Гашение ' + str_date;
 		//Проверку значения через pattern сделать не получилось, все время ругается на неправильный формат
 		//str_html += ' <input type="text" name="flex_payment_schedule[]" value="0" pattern="^\d+(\.\d{1,2})?$"/>';
 		str_html += ' <input type="text" class="form-control" name="flex_payment_schedule[]" value="0"/>';
@@ -68,39 +68,39 @@ $(document).ready(function() {
         rules: {
             sum_kred: {
                 required: true,
-				pattern: "^\\d+(\\.\\d{1,2})?$"
+                pattern : "^\\d+(\\.\\d{1,2})?$"
             },
             str_beg_date: {
                 required: true,
-                pattern: "(0[1-9]|1[012])\\.[0-9]{4}"
+                pattern : "(0[1-9]|1[012])\\.[0-9]{4}"
             },
 			col_month: {
 				required: true,
-				number: true,
-				min: 1
+				number  : true,
+				min     : 1
 			},
             proc: {
                 required: true,
-				pattern: "^\\d+(\\.\\d{1,2})?$"
+                pattern : "^\\d+(\\.\\d{1,2})?$"
             }
         },
         messages: {
             sum_kred: {
                 required: "Укажите сумму кредита в рублях.",
-				pattern: "Неправильный формат числа. Сумма должно быть в рублях (100) или рублях и копейках (100.25)"
+                pattern : "Неправильный формат числа. Сумма должно быть в рублях (100) или рублях и копейках (100.25)"
             },
             str_beg_date: {
                 required: "Укажите дату получения кредита (месяц и год).",
-                pattern: "Неправильный формат даты. Укажите месяц и год получения кредита (например, 01.2010)"
+                pattern : "Неправильный формат даты. Укажите месяц и год получения кредита (например, 01.2010)"
             },
 			col_month: {
 				required: "Укажите срок кредита.",
-				number: "Неправильный формат числа. Срок кредита - целое число",
-				min: "Минимальный срок кредита - 1 месяц"
+				number  : "Неправильный формат числа. Срок кредита - целое число",
+				min     : "Минимальный срок кредита - 1 месяц"
 			},
             proc: {
                 required: "Укажите годовую процентную ставку кредита.",
-                pattern: "Неправильный формат числа. Процент - число с двумя знаками после запятой"
+                pattern : "Неправильный формат числа. Процент - число с двумя знаками после запятой"
             }
         }
     });
@@ -126,14 +126,13 @@ $(document).ready(function() {
 	//Нажимаем на кнопку в форме
 	$('#btnShowPaymentSchedule').click(function(){
 		//Проверяем корректность значений в полях формы
-		// if ($('#frmPlatezhParam').valid()) {
 		if (ValidFormPlatezhParam()) {
 			var data = $("#frmPlatezhParam :input").serialize();
 			$.post($("#frmPlatezhParam").attr('action'), data, function(html_reply){
 				$('#text-popup').html(html_reply);
 				$.magnificPopup.open({
 					items: {
-						src: "#text-popup",
+						src : "#text-popup",
 						type: "inline"
 					}
 				});

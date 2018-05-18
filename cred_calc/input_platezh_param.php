@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-
+<?php include_once '..\registration\header_login_session.php'?>
+<?php include_once '..\registration\header_login.php'?>
 <html>
-<head>
-	<title>Финансист онлайн</title>
+<head hidden>
+	<title>Расчет графика платежей по кредиту | Финансист онлайн</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
@@ -72,7 +72,7 @@
 					<div class="clearfix"></div>
 					<div class="form-group">
 						<input class="col-xs-6 btn btn-primary" type="submit" id="btnShowPaymentSchedule" value="Рассчитать график">
-						<a class="btn btn-warning col-xs-6" href="./calc.php">Другой тип платежа</a>
+						<a class="btn btn-warning col-xs-6" href="./calc.html">Другой тип платежа</a>
 					</div>
 				</div>	<!-- Конец row -->
 			</form>
@@ -82,10 +82,10 @@
 		<div id="text-popup" class="white-popup mfp-hide">
 		</div>
 	</div>  <!-- Конец container -->
-	<script type="text/javascript" src="../js/jquery-1.12.2.min.js"></script>
-	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="../js/additional-methods.min.js"></script>
-	<script type="text/javascript" src="../js/magnific-popup.js"></script>
-	<script type="text/javascript" src="../js/my.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.12.2.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="/js/additional-methods.min.js"></script>
+	<script type="text/javascript" src="/js/magnific-popup.js"></script>
+	<script type="text/javascript" src="js/cred_calc.js"></script>
 </body>
 </html>

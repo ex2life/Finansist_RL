@@ -2,8 +2,8 @@
 // Расчет графика платежей по кредиту согласно полученным входным параметрам и 
 // вывод этого графика в требуемом формате (html для всплывающего окна, pdf-файл, xls-файл)
 
-	require_once '../script/cred_calc_calculation.php';
-	require_once '../script/cred_calc_output.php';
+	require_once 'script/cred_calc_calculation.php';
+	require_once 'script/cred_calc_output.php';
 
 	$type_platezh = $_POST['type_platezh'];
 	$str_beg_date = "01.".$_POST['str_beg_date'];

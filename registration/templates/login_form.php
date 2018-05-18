@@ -29,6 +29,7 @@
 			}
 			else
 			{	
+				console.log(xhr.responseText);
 				signOut();
 				document.location.replace("./register.php?reg=google&full_name="+profile.getName()+"&email="+profile.getEmail()+"&nickname="+profile.getEmail().split('@',1)+"&id="+profile.getId()+"google");  
 			}
@@ -94,6 +95,13 @@
 		<div class="error-msg">
 		При заполнении формы возникли ошибки, пожалуйста проверьте правильность заполнения полей и нажмите "Войти"!
 		</div>
+		<?php if (is_error($errors, 'status_active')): ?>
+				<?php if ($errors['messages']['status_active']=='@status_active-no_active'): ?>
+					<div class="error-msg">
+						Вы не активировали свой аккаунт. Проверьте ваш почтовый адрес.
+					</div>
+				<?php endif;?>
+			<?php endif;?>
 		<?php endif;?>
 		<form action="login.php" method="POST">
 			<?php if ($_GET['type']=='vk'): ?>
