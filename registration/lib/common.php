@@ -935,7 +935,7 @@ function db_handle_error($dbh)
  */
 function db_company_find_all_for_current_user($dbh, $id)
 {
-	$query = 'SELECT company.company_id, company.name, company.inn, opf.brief_name as opf_brief_name, opf.full_name as opf_full_name, sno.brief_name as sno_brief_name, sno.full_name as sno_full_name FROM company, opf, sno WHERE company.sno=sno.id and company.opf=opf.id and user_id=?';
+	$query = 'SELECT company.Id, company.Name, company.INN, OPF.Brief_Name as opf_brief_name, OPF.Full_Name as opf_full_name, SNO.Brief_Name as sno_brief_name, SNO.Full_Name as sno_full_name FROM company, OPF, SNO WHERE company.SNO_Id=SNO.Id and company.OPF_Id=OPF.Id and user_id=?';
     // подготовливаем запрос для выполнения
 	$stmt = mysqli_prepare($dbh, $query);
 	if ($stmt === false)
@@ -1133,6 +1133,44 @@ function db_freedom_email_find($dbh, $email)
 }
 
 /*
+ * Выполняет проверяет, принадлежит ли компания пользователю
+ */
+function db_company_have_user($dbh, $id_company, $id_user)
+{
+	$query = 'SELECT COUNT(*)  FROM company WHERE Id=? and User_Id=?';
+
+	// подготовливаем запрос для выполнения
+	$stmt = mysqli_prepare($dbh, $query);
+	if ($stmt === false)
+		db_handle_error($dbh);
+
+	mysqli_stmt_bind_param($stmt, 'ii', $id_company, $id_user);
+
+	// выполняем запрос и получаем результат
+	if (mysqli_stmt_execute($stmt) === false)
+		db_handle_error($dbh);
+
+	// получаем результирующий набор строк
+	$qr = mysqli_stmt_get_result($stmt);
+	if ($qr === false)
+		db_handle_error($dbh);
+
+	// извлекаем результирующую строку
+	$result = mysqli_fetch_assoc($qr);
+
+	// освобождаем ресурсы, связанные с хранением результата и запроса
+	mysqli_free_result($qr);
+	mysqli_stmt_close($stmt);
+	
+	if ($result['COUNT(*)']==0)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+/*
  * Выполняет поиск в базе данных и загрузку пользователя с указанным логином
  * (логином считаем адрес электронной почты и ник пользователя)
  */
@@ -1321,6 +1359,28 @@ function forget_password_del($dbh, $email)
 	if ($stmt === false)
 		db_handle_error($dbh);
 	mysqli_stmt_bind_param($stmt, 's',$email);
+	// выполняем запрос eи получаем результат
+	if (mysqli_stmt_execute($stmt) === false)
+		db_handle_error($dbh);
+
+	// освобождаем ресурсы, связанные с хранением запроса
+	mysqli_stmt_close($stmt);
+	
+	return true;
+}
+
+
+/*
+ * Выполняет удаление компании из списка компаний
+ */
+function db_company_del($dbh, $id)
+{
+	$query = 'DELETE FROM `company` WHERE id=?';
+	// подготовливаем запрос для выполнения
+	$stmt = mysqli_prepare($dbh, $query);
+	if ($stmt === false)
+		db_handle_error($dbh);
+	mysqli_stmt_bind_param($stmt, 'i',$id);
 	// выполняем запрос eи получаем результат
 	if (mysqli_stmt_execute($stmt) === false)
 		db_handle_error($dbh);

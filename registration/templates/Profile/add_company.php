@@ -15,20 +15,20 @@
   <body>
   	<div class="container">
 	    <header class="header">
-			<h1 class="text-center">АВТОРИЗАЦИЯ</h1>
+			<h1 class="text-center">Добавление компании.</h1>
 			
 		</header>
 		<div id="formlogin" class="jumbotron">
 	    	<div class="form">
 		<div class="row header">
-			<h1>Регистрация</h1>
+			<h1>Информация о компании</h1>
 		</div>
 		<?php if (has_errors($errors)): ?>
 		<div class="error-msg">
 		При заполнении формы возникли ошибки, пожалуйста проверьте правильность заполнения полей и нажмите "Зарегистрироваться"!
 		</div>
 		<?php endif; ?>
-		<form action="register.php" method="POST">
+		<form action="users_company.php" method="POST">
 			<div class="row <?= is_error($errors, 'nickname') ? 'error' : '' ?>">
 				<label for="nickname">Имя пользователя<span class="required">*</span>:</label>
 				<input type="text" name="nickname" id="nickname"
