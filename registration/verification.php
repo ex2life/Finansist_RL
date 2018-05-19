@@ -12,13 +12,14 @@ function main()
 	
 	// подключаемся к базе данных
 	$dbh = db_connect();
+	//Отправляем на проверку данные из GET и если все ок, то там они и удалятся
 	$update_status=good_email($dbh, $_GET);
-	if ($update_status==true) {
+	if ($update_status==true) {//Если удалили успешно
 		redirect('thankyou_commit_regist.php');
 	} else {
 		echo ('error');
 	}
-	
+	//Закрываем подключение
 	db_close($dbh);
 }
 

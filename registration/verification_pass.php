@@ -18,31 +18,29 @@ function main()
 		// если пользователь уже залогинен, то отправляем его на глапную
 		redirect('./');
 	}
-	if (is_postback()) 
+	if (is_postback()) //Если получили пароли для обновления
 		{
-			
 				// обрабатываем отправленную форму
 				$dbh = db_connect();
+				//Обновляем все присланные данные на проверку, если все ок то там пароль и обновим
 				$post_result = update_forget_pass($dbh, $_POST, $errors);
 				db_close($dbh);
-				if ($post_result=="hash_false")
+				if ($post_result=="hash_false")//Если с хэшем возникли проблемы (просрочен или изменен вручную)
 				{					
 				redirect('pass_link_fail.php');
 				}
-				if ($post_result) 
+				if ($post_result) //Если все прошло отлично
 				{
+					//Отправляем на страницу авторизации
 					redirect('./');
-					
 				} 
-				else 
+				else //Если где то возникли ошибки
 				{
 					// информация о пользователе заполнена неправильно, выведем страницу с ошибками
 					render('edit_forgot_pass_form', array(
 						'form' => $_POST, 'errors' => $errors
 					));
 				}
-			
-			
 		} 
 		else 
 		{
@@ -52,11 +50,6 @@ function main()
 					));
 	
 		}
-		
-		
-	
-
-
 }
 
 main();

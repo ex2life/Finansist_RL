@@ -6,7 +6,8 @@
 /*
  * Имя бота в телеграмм, у которого хранятся токены
  */
-define('Telegram_bot', 'finansist_authBot');
+define('Telegram_bot', 'finansist_authBot'); //настроено для finansist3261.com
+//define('Telegram_bot', 'finansistAP_authBot'); //настроено для finansist.andpop.ru
 
 
 /*

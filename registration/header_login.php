@@ -1,6 +1,9 @@
 ﻿<?php
+// подключаемся к базе данных
 $dbh = db_connect();
+// считываем текущего пользователя
 $current_user = db_user_find_by_id($dbh, get_current_user_id());
+// закрываем соединение с базой данных
 db_close($dbh);
 ?>
 <html>
