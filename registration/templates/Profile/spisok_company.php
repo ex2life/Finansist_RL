@@ -34,12 +34,14 @@
 	<h3>Кажется вы не добавили еще ниодной компании. Добавить компании вы можете по кнопке ниже.</h3>
 	<?php else: ?>
 	<form action="users_company.php" method="POST">
-	<table class="company" border="1">
+	<table class="company" border="0">
 		<tr>
 			<th>Название компании</th>
 			<th>ОПФ</th>
 			<th>ИНН</th>
 			<th>СНО</th>
+			<th>Дата регистрации</th>
+			<th>Начало деятельности</th>
 			<th>Команды</th>
 		</tr>
 		<?php foreach ($company_list as $i => $company): ?>
@@ -48,8 +50,10 @@
 			<td title="<?= $company['opf_full_name'] ?>"><?= $company['opf_brief_name'] ?></td>
 			<td><?= $company['INN'] ?></td>
 			<td title="<?= $company['sno_full_name'] ?>"><?= $company['sno_brief_name'] ?></td>
+			<td><?= $company['Date_Registr'] ?></td>
+			<td><?= $company['Date_Begin_Work'] ?></td>
 		    <td>
-                <button type="submit" name="Edit" value="<?= $company['Id'] ?>" /> <image width="20px" height="20px" src="../img/edit.png"> </button>
+                <button hidden type="submit" name="Edit" value="<?= $company['Id'] ?>" /> <image width="20px" height="20px" src="../img/edit.png"> </button>
                 <button type="submit" name="Del" value="<?= $company['Id'] ?>" onclick="if(confirm('Точно желаете удалить? Действие необратимо.'))submit();else return false;" /> <image width="20px" height="20px" src="../img/del.png"> </button>
             </td>
 		</tr>
@@ -57,9 +61,6 @@
 		<?php endforeach; ?>
 	</table>
 	<?php endif; ?>
-    <form action="users_company.php" method="POST">
-        <input type="submit" name="add_company" id="add_company" value="Добавить компанию"/>
-    </form>
 </div>
 	</div>
   </body>

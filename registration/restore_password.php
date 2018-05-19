@@ -1,7 +1,8 @@
 <?php
 
 require('lib/common.php');
-
+session_start();
+include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
 
 function is_postback()
 {

@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.3
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 16 2018 г., 02:10
--- Версия сервера: 5.6.37
+-- Время создания: Май 19 2018 г., 20:52
+-- Версия сервера: 5.6.38
 -- Версия PHP: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -35,6 +35,14 @@ CREATE TABLE `auth_social` (
   `telegram` char(225) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `auth_social`
+--
+
+INSERT INTO `auth_social` (`id_user`, `vk`, `google`, `telegram`) VALUES
+(1, NULL, NULL, NULL),
+(2, NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -52,9 +60,9 @@ CREATE TABLE `calc_limit_dates` (
 --
 
 INSERT INTO `calc_limit_dates` (`Id`, `Date_calc_limit`, `GSZ_Id`) VALUES
-(1, '2017-09-06', 1),
-(4, '2017-11-06', 2),
-(5, '2018-01-28', 7);
+(4, '2017-11-06', 1),
+(5, '2018-01-28', 2),
+(7, '2018-05-19', 3);
 
 -- --------------------------------------------------------
 
@@ -80,14 +88,16 @@ CREATE TABLE `company` (
 
 INSERT INTO `company` (`Id`, `INN`, `GSZ_Id`, `User_Id`, `Name`, `OPF_Id`, `SNO_Id`, `Date_Registr`, `Date_Begin_Work`) VALUES
 (1, 1234567123, 1, 1, 'ООО \"Рога и копыта\"', 2, 1, '2017-11-06', '2017-11-06'),
-(4, 1234567899, 1, 0, 'ПАО \"Друг 1\"', 4, 4, '2017-01-04', '2017-01-04'),
-(6, 1122334455, 2, 0, 'ООО Синдерелла', 2, 1, '2017-05-03', '2017-05-03'),
-(10, 123123121212, 1, 0, 'ИП \"Ленин\"', 1, 1, '2016-01-01', '2016-01-01'),
-(15, 1234567888, 2, 0, 'Компания \"Друг\"', 2, 3, NULL, NULL),
-(17, 123456789012, 7, 0, 'Компания &quot;Друг&quot;', 1, 2, '2016-05-04', '2016-05-04'),
-(18, 123456789011, 2, 0, 'ИП \"Ленин\"', 1, 1, '2017-01-13', '2017-07-07'),
-(20, 1234512345, 2, 0, 'Компания \"Компания\"', 3, 3, '2017-10-02', '2017-10-02'),
-(28, 1111112222, 2, 0, 'Компашка', 2, 5, '2017-04-05', '2017-07-06');
+(4, 1234567899, 2, 2, 'ПАО \"Друг 1\"', 4, 4, '2017-01-04', '2017-01-04'),
+(6, 1122334455, 2, 2, 'ООО Синдерелла', 2, 1, '2017-05-03', '2017-05-03'),
+(10, 123123121212, 3, 1, 'ИП \"Сталин\"', 1, 1, '2016-01-01', '2016-01-01'),
+(15, 1234567888, 3, 1, 'Компания \"Друг\"', 2, 3, '2017-12-05', '2017-10-04'),
+(17, 123456789012, 1, 1, 'Компания &quot;Друг&quot;', 1, 2, '2016-05-04', '2016-05-04'),
+(18, 123456789011, 2, 2, 'ИП \"Ленин\"', 1, 1, '2017-01-13', '2017-07-07'),
+(20, 1234512345, 2, 2, 'Компания \"Компания\"', 3, 3, '2017-10-02', '2017-10-02'),
+(28, 1111112222, 1, 1, 'Компашка', 2, 5, '2017-04-05', '2017-07-06'),
+(29, 847583947537, 3, 1, 'Компания Серёга', 1, 1, '2012-07-05', '2013-05-22'),
+(30, 123456789123, 3, 1, 'Компания \"BMW\"', 1, 3, '2013-12-31', '2014-02-01');
 
 -- --------------------------------------------------------
 
@@ -245,6 +255,7 @@ CREATE TABLE `forget_password` (
 
 CREATE TABLE `GSZ` (
   `Id` tinyint(2) UNSIGNED NOT NULL,
+  `User_Id` int(15) NOT NULL,
   `Brief_Name` char(30) DEFAULT NULL,
   `Full_Name` char(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -253,10 +264,10 @@ CREATE TABLE `GSZ` (
 -- Дамп данных таблицы `GSZ`
 --
 
-INSERT INTO `GSZ` (`Id`, `Brief_Name`, `Full_Name`) VALUES
-(1, 'Группа 1', 'Описание первой группы'),
-(2, 'Группа 2', 'Описание второй группы связанных заемщиков'),
-(7, 'Группа 4 \"пппп\"', 'впфвыавыаваываы выф');
+INSERT INTO `GSZ` (`Id`, `User_Id`, `Brief_Name`, `Full_Name`) VALUES
+(1, 1, 'Группа 1', 'Принадлежит пользователю id=1'),
+(2, 2, 'Группа 2', 'Принадлежит пользователю id=2'),
+(3, 1, 'Группа 3', 'Принадлежит пользователю id=1');
 
 -- --------------------------------------------------------
 
@@ -265,7 +276,7 @@ INSERT INTO `GSZ` (`Id`, `Brief_Name`, `Full_Name`) VALUES
 --
 
 CREATE TABLE `not_end_registration` (
-  `id` int(50) NOT NULL,
+  `id` varchar(225) NOT NULL,
   `social` char(20) NOT NULL,
   `hash` char(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -333,6 +344,14 @@ CREATE TABLE `users` (
   `newsletter` tinyint(1) DEFAULT NULL,
   `status_active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `nickname`, `password`, `fullname`, `newsletter`, `status_active`) VALUES
+(1, 'petrov@gmail.com', 'petrov', '$2y$10$xVgO3E6VD.27OIcse1HtLeZIzgt5JKD.2uemntAtdtq6DI3gjc3qe', 'Петров Владимир Владимирович', 0, 1),
+(2, 'anton@anton.ru', 'antonkarton', '$2y$10$pHENUrGlCYjcIJYhbTgHsOxSbo6kcTq7/HTLQ7fnnt/fwjukB8/ka', 'Семёнов Антон Васильевич', NULL, 1);
 
 --
 -- Индексы сохранённых таблиц
@@ -416,42 +435,50 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `calc_limit_dates`
 --
 ALTER TABLE `calc_limit_dates`
-  MODIFY `Id` tinyint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Id` tinyint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT для таблицы `company`
 --
 ALTER TABLE `company`
-  MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
 --
 -- AUTO_INCREMENT для таблицы `Corp_Balance_Articles`
 --
 ALTER TABLE `Corp_Balance_Articles`
   MODIFY `Id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+
 --
 -- AUTO_INCREMENT для таблицы `Corp_Balance_Results`
 --
 ALTER TABLE `Corp_Balance_Results`
   MODIFY `Id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT для таблицы `GSZ`
 --
 ALTER TABLE `GSZ`
-  MODIFY `Id` tinyint(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id` tinyint(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT для таблицы `OPF`
 --
 ALTER TABLE `OPF`
   MODIFY `Id` tinyint(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT для таблицы `SNO`
 --
 ALTER TABLE `SNO`
   MODIFY `Id` tinyint(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --

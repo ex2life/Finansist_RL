@@ -1,7 +1,5 @@
 <?php
-session_start();
 require('lib/common.php');
-
 /*
  * Точка входа скрипта
  */
@@ -18,15 +16,8 @@ function main()
 	if ($update_status==true) {
 		redirect('thankyou_commit_regist.php');
 	} else {
-		echo ('vse ne ok');
+		echo ('error');
 	}
-
-	
-	// считываем список пользователей и текущего пользователя
-	$user_list = db_user_find_all($dbh);
-	$current_user = db_user_find_by_id($dbh, get_current_user_id());
-
-    // закрываем соединение с базой данных
 	
 	db_close($dbh);
 }

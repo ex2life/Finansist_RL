@@ -1,7 +1,7 @@
 <?php
-include_once '..\registration\header_login_session.php';
-include_once '..\registration\header_login.php';
-//require('lib/common.php');
+session_start();
+require('lib/common.php');
+include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
 
 /*
  * Точка входа скрипта
@@ -46,11 +46,13 @@ function main()
 		
 		// считываем текущего пользователя
 		$current_user = db_user_find_by_id($dbh, get_current_user_id());
+		$sno=db_sno($dbh);
+		$opf=db_opf($dbh);
 		// закрываем соединение с базой данных
 		db_close($dbh);
 		//выводим результирующую страницу
 		render('profile/add_company', array(
-			'current_user' => $current_user, 'errors' => $errors
+			'current_user' => $current_user, 'errors' => $errors, 'sno' => $sno, 'opf' => $opf
 		));
 	}
 	else

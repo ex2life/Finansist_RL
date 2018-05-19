@@ -93,7 +93,7 @@ class Company_Item
 
 function get_GSZ_set()
 {
-	$query = "SELECT * FROM `gsz` ORDER BY `Brief_Name`";
+	$query = "SELECT * FROM `gsz` WHERE `User_Id`=".get_current_user_id()." ORDER BY `Brief_Name`";
 	$GSZ_set = getTable($query);
 	return $GSZ_set;
 }

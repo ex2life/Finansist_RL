@@ -1,5 +1,8 @@
-<?php include_once '..\registration\header_login_session.php'?>
-<?php include_once '..\registration\header_login.php'?>
+<?php 
+session_start();
+require ($_SERVER['DOCUMENT_ROOT'].'/registration/lib/common.php');
+include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
+?>
 <html>
 <head hidden>
 	<title>Расчет графика платежей по кредиту | Финансист онлайн</title>

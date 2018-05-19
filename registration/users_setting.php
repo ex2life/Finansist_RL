@@ -1,7 +1,10 @@
 <?php
-include_once '..\registration\header_login_session.php';
-include_once '..\registration\header_login.php';
-//require('lib/common.php');
+session_start();
+require('lib/common.php');
+if ($_GET['log']!='updatepassinfo')
+{
+	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
+}
 require_once '../libs/google-api-php-client/vendor/autoload.php'; 
 
 function is_postback($type)
@@ -23,8 +26,6 @@ function getUserFromToken($token) {
  */
 function main()
 {
-	// создаем сессию
-	session_start();
 
 	if (!is_current_user()) {
 		// отправляем пользователя на страницу входа в систему

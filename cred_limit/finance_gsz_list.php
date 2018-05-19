@@ -1,7 +1,7 @@
 <?php
-    include_once '..\registration\header_login_session.php';
-	include_once '..\registration\header_login.php';
 	require_once('./script/cred_limit_scripts.php');
+	session_start();
+	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
 	fill_calc_limit_dates();
     $GSZ_set = get_GSZ_set_with_calc_limit_date();
 	$error_message = get_error_message();

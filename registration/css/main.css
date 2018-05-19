@@ -88,6 +88,7 @@ tr.odd {
 
 
 .form input[type="text"],
+.form input[type="date"],
 .form input[type="password"] {
     font-size: 16pt;
     width: 14em;

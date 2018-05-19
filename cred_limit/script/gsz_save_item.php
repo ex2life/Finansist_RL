@@ -1,7 +1,8 @@
 <?php
 	require_once("cred_limit_scripts.php");
 	if (!isset($request["action"])) exit;
-
+	// создаем сессию
+	session_start();
 	switch ($request["action"])
 	{
 		case 'add':
@@ -12,6 +13,7 @@
 			}
 			$data = [];
 			$data["Brief_Name"] = $_POST['GSZ_Brief_Name'];
+			$data["User_Id"] = get_current_user_id();
 			$data["Full_Name"] = $_POST['GSZ_Full_Name'];
 			$result = addRow("GSZ", $data);
 			

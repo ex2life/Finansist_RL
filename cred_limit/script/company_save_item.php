@@ -1,7 +1,8 @@
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'].'/script/app_config.php');
 	require_once('cred_limit_scripts.php');
-
+	// создаем сессию
+	session_start();
 	if (!isset($request["action"])) exit;
 
 	switch ($request["action"])
@@ -18,6 +19,7 @@
 			$data["Name"] = $_POST['Company_Name'];
 			$data["INN"] = $_POST['INN'];
 			$data["GSZ_Id"] = $_POST['GSZ_Id'];
+			$data["User_Id"] = get_current_user_id();
 			$data["OPF_Id"] = get_OPF_Id_by_Name($_POST['OPF']);
 			$data["SNO_Id"] = get_SNO_Id_by_Name($_POST['SNO']);
 			$data["Date_Registr"] = $_POST['Date_Registr'];

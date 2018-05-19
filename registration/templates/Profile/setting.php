@@ -1,5 +1,3 @@
-<?php include_once '..\registration\header_login_session.php'?>
-<?php include_once '..\registration\header_login.php'?>
 <!DOCTYPE html>
 <script type="text/javascript" src="//vk.com/js/api/openapi.js?152"></script>
 <script type="text/javascript">

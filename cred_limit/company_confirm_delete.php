@@ -1,6 +1,8 @@
 <?php
 	require_once('script/cred_limit_scripts.php');
 
+	session_start();
+	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
 	if ((!isset($get["Company_Id"])) || (!ctype_digit($get["Company_Id"])))
 	{
 		$error_message = urlencode("Указаны некорректные параметры удаления компании из ГСЗ");

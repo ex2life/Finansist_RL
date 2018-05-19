@@ -935,7 +935,7 @@ function db_handle_error($dbh)
  */
 function db_company_find_all_for_current_user($dbh, $id)
 {
-	$query = 'SELECT company.Id, company.Name, company.INN, OPF.Brief_Name as opf_brief_name, OPF.Full_Name as opf_full_name, SNO.Brief_Name as sno_brief_name, SNO.Full_Name as sno_full_name FROM company, OPF, SNO WHERE company.SNO_Id=SNO.Id and company.OPF_Id=OPF.Id and user_id=?';
+	$query = 'SELECT company.Id, company.Date_Registr, company.Date_Begin_Work, company.Name, company.INN, OPF.Brief_Name as opf_brief_name, OPF.Full_Name as opf_full_name, SNO.Brief_Name as sno_brief_name, SNO.Full_Name as sno_full_name FROM company, OPF, SNO WHERE company.SNO_Id=SNO.Id and company.OPF_Id=OPF.Id and user_id=?';
     // подготовливаем запрос для выполнения
 	$stmt = mysqli_prepare($dbh, $query);
 	if ($stmt === false)
@@ -1013,6 +1013,69 @@ function db_user_find_by_id($dbh, $id)
 	// освобождаем ресурсы, связанные с хранением результата и запроса
 	mysqli_free_result($qr);
 	mysqli_stmt_close($stmt);
+
+	return $result;
+}
+
+/*
+ * Выполняет загрузку всех SNO
+ */
+function db_sno($dbh)
+{
+	$query = 'SELECT * FROM SNO';
+
+	// подготовливаем запрос для выполнения
+	$stmt = mysqli_prepare($dbh, $query);
+	if ($stmt === false)
+		db_handle_error($dbh);
+
+
+	// выполняем запрос и получаем результат
+	if (mysqli_stmt_execute($stmt) === false)
+		db_handle_error($dbh);
+
+	// получаем результирующий набор строк
+	$qr = mysqli_stmt_get_result($stmt);
+	if ($qr === false)
+		db_handle_error($dbh);
+
+	// последовательно извлекаем строки
+	while ($row = mysqli_fetch_assoc($qr))
+		$result[] = $row;
+
+	// освобождаем ресурсы, связанные с хранением результата
+	mysqli_free_result($qr);
+
+	return $result;
+}
+
+/*
+ *  Выполняет загрузку всех OPF
+ */
+function db_opf($dbh)
+{
+	$query = 'SELECT * FROM OPF';
+
+	// подготовливаем запрос для выполнения
+	$stmt = mysqli_prepare($dbh, $query);
+	if ($stmt === false)
+		db_handle_error($dbh);
+
+	// выполняем запрос и получаем результат
+	if (mysqli_stmt_execute($stmt) === false)
+		db_handle_error($dbh);
+
+	// получаем результирующий набор строк
+	$qr = mysqli_stmt_get_result($stmt);
+	if ($qr === false)
+		db_handle_error($dbh);
+
+	// последовательно извлекаем строки
+	while ($row = mysqli_fetch_assoc($qr))
+		$result[] = $row;
+
+	// освобождаем ресурсы, связанные с хранением результата
+	mysqli_free_result($qr);
 
 	return $result;
 }

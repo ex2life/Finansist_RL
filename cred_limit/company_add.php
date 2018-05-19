@@ -1,5 +1,7 @@
 <?php
 	require_once('script/cred_limit_scripts.php');
+	session_start();
+	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
 	$error_message = "NO_ERRORS";
 	if ((!isset($get["GSZ_Id"])) || (!ctype_digit($_GET["GSZ_Id"])))
 	{

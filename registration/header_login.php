@@ -1,5 +1,4 @@
 ﻿<?php
-require('../registration/lib/common.php');
 $dbh = db_connect();
 $current_user = db_user_find_by_id($dbh, get_current_user_id());
 db_close($dbh);

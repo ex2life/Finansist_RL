@@ -1,7 +1,10 @@
 <?php
-	include_once '..\registration\header_login_session.php';
-	include_once '..\registration\header_login.php';
+
+	session_start();
 	require_once('./script/cred_limit_scripts.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
+
+	
 	$GSZ_set = get_GSZ_set();
 	$error_message = get_error_message();
 ?>
