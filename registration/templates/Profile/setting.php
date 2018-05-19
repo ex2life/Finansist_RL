@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<script type="text/javascript" src="//vk.com/js/api/openapi.js?152"></script>
+<?php
+include_once('lib/social_sites_config.php');
+?>
 <script type="text/javascript">
-  VK.init({apiId: 6394999});
-</script>
-<script type="text/javascript">
-  VK.Widgets.Auth("vk_auth", {"width":300,"authUrl":"http://finansist3261.com/registration/users_setting.php?log=vk&"});
+  VK.Widgets.Auth("vk_auth", {"width":300,"authUrl":"/registration/users_setting.php?log=vk&"});
 </script>
 <script type="text/javascript">
 	function signOut() {
@@ -80,7 +79,6 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="846998585230-oct4e70i9en6bivrhaak2ikremk4ga8q.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
 	
@@ -184,7 +182,7 @@
     <div id="telegram" class="tab-pane fade">
 		<?php if ($user['telegram']==NULL):?>
 		<div  id="telegram_button_auth"  <?php if ($_COOKIE["Telegram_blocked"]=='yes'):?>hidden<?php endif; ?> class="row footer">
-			<script async data-width="300" src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="finansist_authBot" data-size="large" data-auth-url="http://finansist3261.com/registration/users_setting.php?log=telegram&" data-request-access="write"></script>
+			<script async data-width="300" src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="<?php echo Telegram_bot; ?>" data-size="large" data-auth-url="/registration/users_setting.php?log=telegram&" data-request-access="write"></script>
 		</div>
 		<div id="telegram_no_proxy" <?php if ($_COOKIE["Telegram_blocked"]!='yes'):?>hidden<?php endif; ?> class="row footer">
 			Сожалеем, но ваш интернет-провайдер блокирует доступ к Telegram. Добавить способ авторизации не возможно.

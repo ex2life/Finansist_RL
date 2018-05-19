@@ -3,7 +3,7 @@
 include_once('lib/social_sites_config.php');
 ?>
 <script type="text/javascript">
-  VK.Widgets.Auth("vk_auth", {"width":300,"authUrl":"http://finansist3261.com/registration/login.php?log=vk&"});
+  VK.Widgets.Auth("vk_auth", {"width":300,"authUrl":"/registration/login.php?log=vk&"});
 </script>
 <script type="text/javascript">
 	function signOut() {
