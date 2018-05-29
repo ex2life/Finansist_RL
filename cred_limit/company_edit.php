@@ -3,13 +3,13 @@
 	$error_message = "NO_ERRORS";
 
 	session_start();
-	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
-	if ((!isset($get["Company_Id"])) || (!ctype_digit($get["Company_Id"])))
+	if ((!isset($get["Company_Id"])) || (!ctype_digit($get["Company_Id"]))  || !security('company','Id',$get["Company_Id"]))
 	{
 		$error_message = urlencode("Указан некорректный URL для формы редактирования компании из ГСЗ");
 		redirect(HTML_PATH_GSZ_LIST_FORM.'?error='.$error_message);
 	}
 	
+	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
 	$company = new Company_item($get["Company_Id"]);
 	$error_message = get_error_message();
 ?>

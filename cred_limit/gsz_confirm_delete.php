@@ -1,12 +1,13 @@
 <?php
 	require_once('./script/cred_limit_scripts.php');
 	session_start();
-	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
-	if ((!isset($get["GSZ_Id"])) || (!ctype_digit($get["GSZ_Id"])))
+	if ((!isset($get["GSZ_Id"])) || (!ctype_digit($get["GSZ_Id"]))  || !security('GSZ','Id',$get["GSZ_Id"]))
 	{
 		$error_message = urlencode("Указаны некорректные параметры ГСЗ для удаления");
 		redirect(HTML_PATH_GSZ_LIST_FORM.'?error='.$error_message);
 	}
+	
+	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
 	$GSZ_item = new GSZ_item($get["GSZ_Id"]);
 ?>
 <!-- =========================================================================== -->

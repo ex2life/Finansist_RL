@@ -2,12 +2,13 @@
 	require_once('./script/cred_limit_scripts.php');
 	
 	session_start();
-	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
-	if ((!isset($get["GSZ_Id"])) || (!ctype_digit($get["GSZ_Id"])) )
+
+	if ((!isset($get["GSZ_Id"])) || (!ctype_digit($get["GSZ_Id"]))  || !security('GSZ','Id',$get["GSZ_Id"]) )
 	{
-		$error_message = urlencode("Ошибка! Для списка организаций указан некорректный код ГСЗ.");
+		$error_message = urlencode("Ошибка! Для списка организаций указан некорректный код ГСЗ");
 		redirect(HTML_PATH_FINANCE_COMPANY_LIST_FORM.'?error='.$error_message);
 	}
+	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
 	$GSZ_item = new GSZ_item($get["GSZ_Id"]);
 	$company_set = get_company_set($get["GSZ_Id"]);
 	

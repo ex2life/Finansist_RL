@@ -44,6 +44,21 @@ function getCell($query)
     return $arr[0]; 
 }
 
+function security($name_table,$name_Col,$id_sec) 
+{
+    global $mysqli;
+	$query = 'SELECT COUNT(*) FROM `'.$name_table.'` WHERE `'.$name_Col.'`='.$id_sec.' AND `User_Id`='.get_current_user_id().'';
+    $result_set = $mysqli->query($query);
+    if (is_null($result_set) || !$result_set->num_rows) return false;
+    $arr = array_values($result_set->fetch_assoc());
+    $result_set->close();
+	if ($arr[0]!='0')
+	{
+		return true;
+	}
+    return false; 
+}
+
 function getRow($query)
 {
     global $mysqli;

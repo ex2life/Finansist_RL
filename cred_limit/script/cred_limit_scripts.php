@@ -110,7 +110,7 @@ function get_GSZ_set_with_calc_limit_date()
     . " `calc_limit_dates`.`Id` AS `Calc_limit_dates_Id`\n"
     . "FROM\n"
     . " `GSZ`, `company`,`calc_limit_dates`\n"
-    . "WHERE `GSZ`.`Id`=`company`.`GSZ_Id` AND `GSZ`.`Id`=`calc_limit_dates`.`GSZ_Id`\n"
+    . "WHERE `GSZ`.`Id`=`company`.`GSZ_Id` AND `GSZ`.`Id`=`calc_limit_dates`.`GSZ_Id` AND `GSZ`.`User_Id`=".get_current_user_id()."\n"
     . "GROUP BY `GSZ`.`Id`";
 	
 	$GSZ_set = getTable($query);
@@ -136,7 +136,8 @@ function get_company_set($GSZ_Id)
     . "WHERE \n"
     . " (`A`.`GSZ_Id` = {$GSZ_Id}) \n"
     . " AND (`A`.`OPF_Id` = `B`.`Id`) \n"
-    . " AND (`A`.`SNO_Id` = `C`.`Id`)";
+    . " AND (`A`.`SNO_Id` = `C`.`Id`)"
+	. " AND (`User_Id`=".get_current_user_id().")";
 	
 	$company_set = getTable($query);
 	return $company_set;

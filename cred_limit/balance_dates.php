@@ -2,12 +2,12 @@
 	require_once('./script/cred_limit_scripts.php');
 	
 	session_start();
-	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
-	if ((!isset($get["Company_Id"])) || (!ctype_digit($get["Company_Id"])) )
+	if ((!isset($get["Company_Id"])) || (!ctype_digit($get["Company_Id"])) || !security('company','Id',$get["Company_Id"]) )
 	{
 		$error_message = urlencode("Был указан некорректный код компании для ввода данных по балансу");
 		redirect(HTML_PATH_FINANCE_GSZ_LIST_FORM.'?error='.$error_message);
 	}
+	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
     $company = new Company_Item($get["Company_Id"]);
 
     $GSZ = new GSZ_Item($company->GSZ_Id);
