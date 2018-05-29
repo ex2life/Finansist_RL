@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 29 2018 г., 14:14
+-- Время создания: Май 19 2018 г., 20:56
 -- Версия сервера: 5.6.38
 -- Версия PHP: 5.5.38
 
@@ -55,12 +55,12 @@ CREATE TABLE `calc_limit_dates` (
 
 CREATE TABLE `company` (
   `Id` int(10) UNSIGNED NOT NULL,
-  `INN` bigint(20) UNSIGNED NOT NULL,
-  `GSZ_Id` tinyint(2) UNSIGNED NOT NULL,
-  `User_Id` bigint(20) UNSIGNED NOT NULL,
+  `INN` bigint(20) NOT NULL,
+  `GSZ_Id` tinyint(2) NOT NULL,
+  `User_Id` int(10) NOT NULL,
   `Name` char(150) NOT NULL,
-  `OPF_Id` tinyint(2) UNSIGNED NOT NULL,
-  `SNO_Id` tinyint(2) UNSIGNED NOT NULL,
+  `OPF_Id` tinyint(2) NOT NULL,
+  `SNO_Id` tinyint(2) NOT NULL,
   `Date_Registr` date DEFAULT NULL,
   `Date_Begin_Work` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -128,7 +128,7 @@ CREATE TABLE `forget_password` (
 
 CREATE TABLE `GSZ` (
   `Id` tinyint(2) UNSIGNED NOT NULL,
-  `User_Id` bigint(20) UNSIGNED NOT NULL,
+  `User_Id` int(15) NOT NULL,
   `Brief_Name` char(30) DEFAULT NULL,
   `Full_Name` char(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -196,10 +196,7 @@ CREATE TABLE `users` (
 -- Индексы таблицы `auth_social`
 --
 ALTER TABLE `auth_social`
-  ADD PRIMARY KEY (`id_user`),
-  ADD UNIQUE KEY `vk` (`vk`),
-  ADD UNIQUE KEY `google` (`google`),
-  ADD UNIQUE KEY `telegram` (`telegram`);
+  ADD PRIMARY KEY (`id_user`);
 
 --
 -- Индексы таблицы `calc_limit_dates`
@@ -213,11 +210,7 @@ ALTER TABLE `calc_limit_dates`
 --
 ALTER TABLE `company`
   ADD PRIMARY KEY (`Id`),
-  ADD UNIQUE KEY `INN` (`INN`,`GSZ_Id`),
-  ADD KEY `company_OPF` (`OPF_Id`),
-  ADD KEY `company_SNO` (`SNO_Id`),
-  ADD KEY `company_user_id` (`User_Id`),
-  ADD KEY `company_GZS_id` (`GSZ_Id`);
+  ADD UNIQUE KEY `INN` (`INN`,`GSZ_Id`);
 
 --
 -- Индексы таблицы `Corp_Balance_Articles`
@@ -242,8 +235,7 @@ ALTER TABLE `forget_password`
 -- Индексы таблицы `GSZ`
 --
 ALTER TABLE `GSZ`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `GSZ_User_id` (`User_Id`);
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- Индексы таблицы `not_end_registration`
@@ -268,8 +260,7 @@ ALTER TABLE `SNO`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `nickname` (`nickname`);
+  ADD UNIQUE KEY `email` (`email`,`nickname`);
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
@@ -334,25 +325,10 @@ ALTER TABLE `calc_limit_dates`
   ADD CONSTRAINT `calc_limit_dates_ibfk_1` FOREIGN KEY (`GSZ_Id`) REFERENCES `GSZ` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ограничения внешнего ключа таблицы `company`
---
-ALTER TABLE `company`
-  ADD CONSTRAINT `company_GZS_id` FOREIGN KEY (`GSZ_Id`) REFERENCES `GSZ` (`Id`),
-  ADD CONSTRAINT `company_OPF` FOREIGN KEY (`OPF_Id`) REFERENCES `OPF` (`Id`),
-  ADD CONSTRAINT `company_SNO` FOREIGN KEY (`SNO_Id`) REFERENCES `SNO` (`Id`),
-  ADD CONSTRAINT `company_user_id` FOREIGN KEY (`User_Id`) REFERENCES `users` (`id`);
-
---
 -- Ограничения внешнего ключа таблицы `Corp_Balance_Results`
 --
 ALTER TABLE `Corp_Balance_Results`
   ADD CONSTRAINT `corp_balance_results_ibfk_1` FOREIGN KEY (`Company_Id`) REFERENCES `company` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `GSZ`
---
-ALTER TABLE `GSZ`
-  ADD CONSTRAINT `GSZ_User_id` FOREIGN KEY (`User_Id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
