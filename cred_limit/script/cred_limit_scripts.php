@@ -260,13 +260,14 @@ function is_Balance_Exists($Company_Id, $Balance_Date, $Balance_Part)
 	return ($count_rows>1);
 }
 
-function get_Corporation_Balance_Part($Company_Id, $Balance_Date, $Type_Balance = "active", $is_Corporation = 0)
+function get_Corporation_Balance_Part($Company_Id, $Balance_Date, $Type_Balance = "active", $is_Corporation)
 {
 	// $Balance_Part=1 - актив, $Balance_Part=2 - пассив
 	$Balance_Part =(strtolower($Type_Balance) == "active" ? 1 : 2);
 
 	// Таблица Corp_Balance_Articles - структура статей баланса для предприятий
 	// Таблица Indived_Balance_Articles - структура статей баланса для ИП
+	$is_Corporation=1;
 	$Balance_Articles_table = ($is_Corporation ? 'Corp_Balance_Articles' : 'Individ_Balance_Articles');
 
 	$Balance_Active = [];

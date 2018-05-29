@@ -88,6 +88,10 @@ function getTable($query)
 {
     global $mysqli;
     $result_set = $mysqli->query($query);
+	if ($result_set === false) {
+    echo mysql_error();
+	return false;
+	}
     if (is_null($result_set)) return false;
     $result = array();
     while (($row = $result_set->fetch_assoc()) !=false)    
