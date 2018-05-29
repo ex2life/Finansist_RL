@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 29 2018 г., 14:14
+-- Время создания: Май 29 2018 г., 17:35
 -- Версия сервера: 5.6.38
 -- Версия PHP: 5.5.38
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `auth_social` (
-  `id_user` int(11) NOT NULL,
+  `id_user` bigint(20) UNSIGNED NOT NULL,
   `vk` char(225) DEFAULT NULL,
   `google` char(225) DEFAULT NULL,
   `telegram` char(225) DEFAULT NULL
@@ -326,6 +326,12 @@ ALTER TABLE `users`
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
+
+--
+-- Ограничения внешнего ключа таблицы `auth_social`
+--
+ALTER TABLE `auth_social`
+  ADD CONSTRAINT `social_user_id` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `calc_limit_dates`
