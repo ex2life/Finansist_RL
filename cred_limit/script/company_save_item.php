@@ -25,7 +25,7 @@
 			$data["Date_Registr"] = $_POST['Date_Registr'];
 			$data["Date_Begin_Work"] = $_POST['Date_Begin_Work'];
 			
-			$result = addRow("Company", $data);
+			$result = addRow("company", $data);
 			if (!$result) $error_message = urlencode("Ошибка при добавлении компании в ГСЗ ({$mysqli->error})");
 			break;
 		
@@ -63,9 +63,9 @@
 				redirect(HTML_PATH_GSZ_LIST_FORM."?error={$error_message}");
 			}
 
-			$result = setRow("Company", $_POST['Company_Id'], $data);
+			$result = setRow("company", $_POST['Company_Id'], $data);
 			if (!$result) $error_message = urlencode("Ошибка при сохранении данных о компании ({$mysqli->error})");
-			// $query = 'UPDATE `Company` SET `Name`="'.$Name.'", `INN`='.$INN.', `OPF_Id`='.$OPF_Id.', `SNO_Id`='.$SNO_Id.' WHERE `Id`='.$Id;
+			// $query = 'UPDATE `company` SET `Name`="'.$Name.'", `INN`='.$INN.', `OPF_Id`='.$OPF_Id.', `SNO_Id`='.$SNO_Id.' WHERE `Id`='.$Id;
 			break;
 		
 		case 'delete':
@@ -82,9 +82,9 @@
 				redirect(HTML_PATH_GSZ_LIST_FORM."?error={$error_message}");
 			}
 
-			$result = deleteRow("Company", $_GET['Company_Id']);
+			$result = deleteRow("company", $_GET['Company_Id']);
 			if (!$result) $error_message = urlencode("Ошибка при удалении компании из ГСЗ ({$mysqli->error})");
-			// $query = 'DELETE FROM `Company` WHERE `Id`='.$get['Company_Id'];
+			// $query = 'DELETE FROM `company` WHERE `Id`='.$get['Company_Id'];
 			break;
 		
 		default:

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require ($_SERVER['DOCUMENT_ROOT'].'/registration/lib/common.php');
-include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
+include_once ($_SERVER['DOCUMENT_ROOT'].'/registration/header_login.php');
 ?>
 <html>
 <head hidden>

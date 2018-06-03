@@ -43,7 +43,7 @@ function main()
 				'form' => $data_get, 'errors' => $errors
 			));
 	}
-	if (is_postback()) {
+	elseif (is_postback()) {
 		// обрабатываем отправленную форму
 		$dbh = db_connect();
 		$post_result = register_user($dbh, $user, $errors);

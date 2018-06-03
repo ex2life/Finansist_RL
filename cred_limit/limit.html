@@ -1,7 +1,9 @@
 <?php 
 session_start();
-require ($_SERVER['DOCUMENT_ROOT'].'/registration/lib/common.php');
-include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
+
+require_once('./script/cred_limit_scripts.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'].'/registration/header_login.php');
+	$error_message = get_error_message();
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,6 +22,10 @@ include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
 		<h1 class="text-center">КРЕДИТНЫЙ ЛИМИТ <br> 
 			ГРУППЫ СВЯЗАННЫХ <br> ЗАЕМЩИКОВ (ГСЗ)</h1>
 	</header>
+	<div id="error_message_div" class="alert alert-danger" role="alert">
+				<span id="error_message"><?=$error_message?></span>
+				<button id="btnError_message" type="button" class="btn btn-info btn-xs">Закрыть</button>
+	</div>
 	<div class="row">
 			<a class="btn_margin btn btn-default btn-lg col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xs-offset-1 col-sm-offset-5 col-md-offset-7 col-lg-offset-9" href="gsz_list.php">	Группы связанных заемщиков</a>
 <!-- 			<a class="btn_margin btn btn-default btn-lg col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xs-offset-1 col-sm-offset-5 col-md-offset-7 col-lg-offset-9" href="company_forms.php">	Компании в составе ГСЗ</a>
@@ -31,5 +37,10 @@ include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
 	</div>
 
 </div>
+
+<script type="text/javascript" src="/js/jquery-1.12.2.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.validate.min.js"></script> 
+	<script type="text/javascript" src="js/cred_limit.js"></script>
 </body>
+
 </html>

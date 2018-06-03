@@ -18,8 +18,8 @@ $Balance_Date = $_POST['Balance_Date'];
 $company = new Company_Item($Company_Id);
 // Таблица Corp_Balance_Articles - структура статей баланса для предприятий
 // Таблица Individ_Balance_Articles - структура статей баланса для ИП
-$Balance_Articles_table = ($company->Is_Corporation ? 'Corp_Balance_Articles' : 'Individ_Balance_Articles');
 $company->Is_Corporation=1;
+$Balance_Articles_table = ($company->Is_Corporation ? 'Corp_Balance_Articles' : 'Individ_Balance_Articles');
 // Удаляем записи по данной компании за эту дату в таблице Corp_Balance_Results
 delete_Balance_Values($Company_Id, $Balance_Date);
 
@@ -31,7 +31,8 @@ foreach ($_POST as $code => $value) {
     // Получаем строку для данного кода из справочника статей баланса Corp_Balance_Articles
     $query = "SELECT * FROM `{$Balance_Articles_table}` WHERE `Code`='{$code}'";
     $data = getRow($query);
-
+	$error_message = urlencode($query);
+    redirect(HTML_PATH_FINANCE_GSZ_LIST_FORM."?error={$error_message}");
     // Меняем нужные поля (значения пришли из формы) и записываем эту строку в Corp_Balance_Results
     $data['Id'] = 0;
     $data['Value'] = $value;

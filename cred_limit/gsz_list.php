@@ -2,7 +2,12 @@
 
 	session_start();
 	require_once('./script/cred_limit_scripts.php');
-	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
+	if (!is_current_user())
+	{
+		$error_message = urlencode("Вы не авторизованы. Войдите в учетную запись или зарегистрируйтесь на сервисе");
+		redirect('limit.html?error='.$error_message);
+	}
+	include_once ($_SERVER['DOCUMENT_ROOT'].'/registration/header_login.php');
 
 	
 	$GSZ_set = get_GSZ_set();
@@ -33,9 +38,11 @@
 			</div>
 		
 			<table class="table">
+				<?php if (empty ($GSZ_set)): ?>
+					<h3>Кажется вы не добавили еще ни одной группы. Добавить группы вы можете по кнопке ниже.</h3>
+				<?php else: ?>
 				<tr><th>Название</th><th>Описание</th><th></th><th></th><th></th></tr>
-				<?php	
-					foreach ($GSZ_set as $GSZ) {
+				<?php	foreach ($GSZ_set as $GSZ) {
 						$id = $GSZ['Id']; ?>
 				<tr>
 					<td><?=$GSZ['Brief_Name']?></td>
@@ -46,6 +53,7 @@
 				</tr>
 				<?php
 					} //end of foreach
+				endif;
 				?>
 			</table>
 			<a class="btn btn-primary" href="<?=HTML_PATH_GSZ_ADD_FORM?>">Добавить</a>

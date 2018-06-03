@@ -9,7 +9,7 @@
 		redirect(HTML_PATH_GSZ_LIST_FORM.'?error='.$error_message);
 	}
 	
-	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'].'/registration/header_login.php');
 	$company = new Company_item($get["Company_Id"]);
 	$error_message = get_error_message();
 ?>

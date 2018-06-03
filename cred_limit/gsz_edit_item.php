@@ -7,7 +7,7 @@
 		redirect(HTML_PATH_GSZ_LIST_FORM.'?error='.$error_message);
 	}
 	
-	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');	
+	include_once ($_SERVER['DOCUMENT_ROOT'].'/registration/header_login.php');
 	$GSZ_item = new GSZ_item($get['GSZ_Id']);
 ?>
 <!-- =================================================================================================== -->

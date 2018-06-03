@@ -1,7 +1,13 @@
 <?php
 	require_once('./script/cred_limit_scripts.php');
 	session_start();
-	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
+	if (!is_current_user())
+	{
+		$error_message = urlencode("Вы не авторизованы. Войдите в учетную запись или зарегистрируйтесь на сервисе");
+		redirect('limit.html?error='.$error_message);
+	}
+	
+	include_once ($_SERVER['DOCUMENT_ROOT'].'/registration/header_login.php');
 	fill_calc_limit_dates();
     $GSZ_set = get_GSZ_set_with_calc_limit_date();
 	$error_message = get_error_message();

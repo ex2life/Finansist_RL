@@ -1,5 +1,31 @@
 <?php
-define('MYSQL_SERVER', 'localhost');     
+
+/* ****************************************************************************
+ * Конфигурация скрипта - параметры базы данных
+ */
+
+/*
+ * Узел сети, на котором расположен сервер базы данных
+ */
+define('MYSQL_SERVER', 'localhost');
+
+/*
+ * Пользователь, от имени которого подключаемся к базе данных
+ */
 define('MYSQL_USER', 'root');
-define('MYSQL_PASSWORD', '');    
-define('MYSQL_DB', 'finansist');   
+
+/*
+ * Пароль к базе данных
+ */
+define('MYSQL_PASSWORD', '');
+
+/*
+ * Имя базы данных на сервере
+ */
+define('MYSQL_DB', 'Finansist');
+
+/*
+ * Соли для хешей
+ */
+ define('SALT', '28dney');
+ define('SALT2', 'grimm7');

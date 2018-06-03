@@ -1,5 +1,5 @@
 <?php
-require('config.php');
+require($_SERVER['DOCUMENT_ROOT'].'/script/connection_params.php');
 /* ****************************************************************************
  * Общие функции
  */
@@ -247,6 +247,11 @@ function login_social_user($dbh, $soc, $socid, $errors)
 
 	// форма передана правильно, ищем пользователя
 	$id_otv = db_id_find_by_socid($dbh, $soc, $socid);
+	$db_user=db_user_find_by_id($dbh, $id_otv);
+	if ($db_user['status_active']=='0')
+	{
+		return add_error($errors, 'status_active', 'no_active');
+	}
 	store_current_user_id($id_otv);
 	return $id_otv;
 }
@@ -316,9 +321,6 @@ function register_user($dbh, &$user, &$errors)
 		db_user_socid_insert_null($dbh, $db_user['id']);
 	}
 	send_confirm_message($db_user);
-
-	// автоматически логиним пользователя после регистрации, запоминая его в сессии
-	store_current_user_id($db_user['id']);
 	return true;
 }
 
@@ -444,7 +446,7 @@ function update_infoprofile($dbh, &$new_info, &$errors)
  */
 function db_connect()
 {
-	$dbh = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	$dbh = mysqli_connect(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
 
 	// проверка соединения
 	if (mysqli_connect_errno())
@@ -481,8 +483,6 @@ $message = gener_email_html($user);
 
 // Отправляем
 mail($user['email'], $subject, $message,$headers);
-//отправка копии себе для отладки
-mail("abramizsaransk@gmail.com", $subject, $message,$headers);
 redirect('thankyou_regist.php');
 }
 
@@ -507,8 +507,6 @@ $message = gener_email_html_pass($user);
 
 // Отправляем
 mail($user['email'], $subject, $message,$headers);
-//отправка копии себе для отладки
-mail("abramizsaransk@gmail.com", $subject, $message,$headers);
 redirect('pass_mail_send.php');
 }
 

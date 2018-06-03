@@ -2,6 +2,7 @@
 
 require('lib/common.php');
 require_once '../libs/google-api-php-client/vendor/autoload.php'; 
+require('lib/social_sites_config_telegram.php');
 /*
  * Проверяет, что была выполнена отправка формы входа
  */
@@ -68,7 +69,7 @@ function main()
 	}
 	elseif ($_GET['log']=='telegram')
 	{
-		define('BOT_TOKEN', '540342856:AAF9Tg1zBhy2zwma7aoKZ4VcS7GSOC1wxLA'); // place bot token of your bot here
+
 		function checkTelegramAuthorization($auth_data) 
 		{
 		  $check_hash = $auth_data['hash'];
@@ -209,4 +210,3 @@ function main()
 }
 
 main();
-

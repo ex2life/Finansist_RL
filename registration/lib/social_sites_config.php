@@ -8,6 +8,7 @@
  */
 define('Telegram_bot', 'finansist_authBot'); //настроено для finansist3261.com
 //define('Telegram_bot', 'finansistAP_authBot'); //настроено для finansist.andpop.ru
+//define('Telegram_bot', 'finansist000webhostapp_authBot'); //настроено для finansist-online.000webhostapp.com
 
 
 /*

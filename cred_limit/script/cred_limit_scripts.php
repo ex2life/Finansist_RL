@@ -71,7 +71,7 @@ class Company_Item
 	{
 		$query = "SELECT `A`.`Name` AS `Name`, `A`.`INN` AS `INN`, `A`.`GSZ_Id` AS `GSZ_Id`, `A`.`OPF_Id` AS `OPF_Id`, `A`.`SNO_Id` AS `SNO_Id`, `B`.`Brief_Name` AS `OPF`, ";
 		$query .= " `C`.`Brief_Name` AS `SNO`, `D`.`Brief_Name` AS  `GSZ_Name`, `A`.`Date_Registr`, `A`.`Date_Begin_Work`, `B`.`Is_Corporation` ";
-		$query .= "FROM `Company` `A`, `OPF` `B`, `SNO` `C` , `GSZ` `D` ";
+		$query .= "FROM `company` `A`, `OPF` `B`, `SNO` `C` , `GSZ` `D` ";
 		$query .= "WHERE `A`.`Id`={$Company_Id} AND (`A`.`OPF_Id`=`B`.`Id`) AND (`A`.`SNO_Id`=`C`.`Id`) AND (`A`.`GSZ_Id`=`D`.`Id`)";
 		
 		$row = getRow($query);
@@ -93,7 +93,7 @@ class Company_Item
 
 function get_GSZ_set()
 {
-	$query = "SELECT * FROM `gsz` WHERE `User_Id`=".get_current_user_id()." ORDER BY `Brief_Name`";
+	$query = "SELECT * FROM `GSZ` WHERE `User_Id`=".get_current_user_id()." ORDER BY `Brief_Name`";
 	$GSZ_set = getTable($query);
 	return $GSZ_set;
 }
@@ -130,7 +130,7 @@ function get_company_set($GSZ_Id)
     . " `A`.`Date_Begin_Work`,\n"
     . " `B`.`Is_Corporation`\n"
     . "FROM \n"
-    . " `Company` `A`, \n"
+    . " `company` `A`, \n"
     . " `OPF` `B`, \n"
     . " `SNO` `C` \n"
     . "WHERE \n"

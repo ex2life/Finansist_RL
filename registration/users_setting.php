@@ -3,9 +3,10 @@ session_start();
 require('lib/common.php');
 if ($_GET['log']!='updatepassinfo')
 {
-	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'].'/registration/header_login.php');
 }
 require_once '../libs/google-api-php-client/vendor/autoload.php'; 
+include_once('lib/social_sites_config_telegram.php');
 
 function is_postback($type)
 {
@@ -62,7 +63,6 @@ function main()
 	}
 	elseif ($_GET['log']=='telegram')
 	{
-		define('BOT_TOKEN', '540342856:AAF9Tg1zBhy2zwma7aoKZ4VcS7GSOC1wxLA'); // place bot token of your bot here
 		function checkTelegramAuthorization($auth_data) 
 		{
 		  $check_hash = $auth_data['hash'];

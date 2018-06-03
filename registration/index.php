@@ -7,8 +7,6 @@ require('lib/common.php');
  */
 function main()
 {
-	// создаем сессию
-	session_start();
 
 	if (!is_current_user()) {
 		// отправляем пользователя на страницу входа в систему
@@ -30,4 +28,4 @@ function main()
 }
 
 main();
-
+?>

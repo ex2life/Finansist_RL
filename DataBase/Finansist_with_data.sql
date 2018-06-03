@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 29 2018 г., 23:20
+-- Время создания: Май 30 2018 г., 14:48
 -- Версия сервера: 5.6.38
 -- Версия PHP: 5.5.38
 
@@ -589,7 +589,7 @@ ALTER TABLE `users`
 -- Ограничения внешнего ключа таблицы `auth_social`
 --
 ALTER TABLE `auth_social`
-  ADD CONSTRAINT `social_user_id` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `auth_social_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `calc_limit_dates`
@@ -601,10 +601,10 @@ ALTER TABLE `calc_limit_dates`
 -- Ограничения внешнего ключа таблицы `company`
 --
 ALTER TABLE `company`
-  ADD CONSTRAINT `company_GZS_id` FOREIGN KEY (`GSZ_Id`) REFERENCES `gsz` (`Id`),
   ADD CONSTRAINT `company_OPF` FOREIGN KEY (`OPF_Id`) REFERENCES `opf` (`Id`),
   ADD CONSTRAINT `company_SNO` FOREIGN KEY (`SNO_Id`) REFERENCES `sno` (`Id`),
-  ADD CONSTRAINT `company_user_id` FOREIGN KEY (`User_Id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `company_ibfk_1` FOREIGN KEY (`GSZ_Id`) REFERENCES `gsz` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `company_ibfk_2` FOREIGN KEY (`User_Id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `corp_balance_results`
@@ -616,7 +616,7 @@ ALTER TABLE `corp_balance_results`
 -- Ограничения внешнего ключа таблицы `gsz`
 --
 ALTER TABLE `gsz`
-  ADD CONSTRAINT `GSZ_User_id` FOREIGN KEY (`User_Id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `gsz_ibfk_1` FOREIGN KEY (`User_Id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

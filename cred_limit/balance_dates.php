@@ -20,7 +20,7 @@
 		$url = HTML_PATH_FINANCE_COMPANY_LIST_FORM."?".http_build_query($url_param);
 		redirect($url);
 	};
-	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'].'/registration/header_login.php');
 
 ?>
 <!-- ==================================================================================================== -->

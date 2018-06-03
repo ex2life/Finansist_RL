@@ -7,7 +7,7 @@
 		redirect(HTML_PATH_GSZ_LIST_FORM.'?error='.$error_message);
 	}
 	
-	include_once ($_SERVER['DOCUMENT_ROOT'].'\registration\header_login.php');
+	include_once ($_SERVER['DOCUMENT_ROOT'].'/registration/header_login.php');
 	$GSZ_item = new GSZ_item($get["GSZ_Id"]);
 	$company_set = get_company_set($get["GSZ_Id"]);
 	
@@ -38,6 +38,9 @@
 			</div>
 			<h3><?=$GSZ_item->Brief_Name?></h3>
 			<table class="table">
+				<?php if (empty ($company_set)): ?>
+					<h3>Кажется вы не добавили еще ни одной компании. Добавить компании вы можете по кнопке ниже.</h3>
+				<?php else: ?>
 				<tr>
 					<th>Название</th><th>ИНН</th><th>ОПФ</th><th>СНО</th><th>Дата регистрации</th><th>Начало деятельности</th>
 				</tr>
@@ -52,6 +55,7 @@
 				</tr>
 				<?php
 				} 
+				endif;
 				?>
 			</table>
 			<a class="btn btn-primary" href="<?=HTML_PATH_COMPANY_ADD_FORM?>?GSZ_Id=<?=$GSZ_item->Id?>">Добавить</a>

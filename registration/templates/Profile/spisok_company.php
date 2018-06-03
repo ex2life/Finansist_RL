@@ -31,7 +31,7 @@
 		<?php endif; ?>
 	<?php endif; ?>
 	<?php if (empty ($company_list)): ?>
-	<h3>Кажется вы не добавили еще ниодной компании. Добавить компании вы можете по кнопке ниже.</h3>
+	<h3>Кажется вы не добавили еще ни одной компании. Добавить компании вы можете по кнопке ниже.</h3>
 	<?php else: ?>
 	<form action="users_company.php" method="POST">
 	<table class="company" border="0">

@@ -49,7 +49,7 @@
 			}
 			$result = deleteRow("GSZ", $_GET['Id']);
 			if (!$result) $error_message = urlencode("Ошибка при удалении ГСЗ");
-			// $query = 'DELETE FROM `GSZ` WHERE `Id`='.$request['Id'];
+			// $query = 'DELETE FROM `gsz` WHERE `Id`='.$request['Id'];
 			break;
 
 		default:
