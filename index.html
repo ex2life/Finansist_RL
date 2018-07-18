@@ -6,7 +6,7 @@ if (is_current_user())
 {
 $current_user = db_user_find_by_id($dbh, get_current_user_id());
 }
-else 
+else
 {
 $current_user=false;
 }
@@ -19,21 +19,22 @@ db_close($dbh);
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
-	<link href="css/bootstrap.min.css" rel="stylesheet"/> 
-	<link href="css/style.css" rel="stylesheet"/> 
+	<link href="css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="css/style.css" rel="stylesheet"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="yandex-verification" content="a06380c0c91fee26" />
   </head>
-	
+
   <body>
   	<div align="right" style="margin-right:5%" class="wrapper">
 		<?php if ($current_user): ?>
-			<a href="../registration/users_company.php" class="btn btn-default">Мои компании</a>
+			<a href="..\registration\users_company.php" class="btn btn-default">Мои компании</a>
 			<div class="btn-group">
 			  <a href="../registration/users_setting.php" title="Настройки профиля" class="btn btn-default"><?= $current_user['fullname'] ?></a>
 			  <a href="../registration/logout.php" title="Выход" class="btn btn-default"><img width="20" height="20" src="../img/Out.png"></a>
 			</div>
 		<?php else: ?>
-		<form action="/registration/login.php?from=index"  method="POST" class="form-inline">
+		<form action="../registration/login.php?from=index"  method="POST" class="form-inline">
 			<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 				<div class="input-group-addon"><img width="20" height="20" src="../img/user.png"></div>
 				<input type="text" name="username" id="username" class="form-control" placeholder="Имя пользователя">

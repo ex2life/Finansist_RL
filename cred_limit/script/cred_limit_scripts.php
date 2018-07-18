@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/script/app_config.php');
 
 define('MAX_LENGTH_COMPANY_NAME', 150);
@@ -32,7 +32,7 @@ $mysqli = db_connect();
 $mysqli->set_charset("utf8");
 
 
-class GSZ_Item 
+class GSZ_Item
 {
 	public $Id, $Brief_Name, $Full_Name, $Date_Begin_Work, $NumberCompany, $Calc_limit_dates_Id, $Date_calc_limit;
 
@@ -40,14 +40,14 @@ class GSZ_Item
 	{
 		$query = "SELECT `Brief_Name`, `Full_Name` FROM GSZ WHERE `Id`={$id}";
 		$row = getRow($query);
-	
+
 		$this->Id = $id;
 		$this->Brief_Name = htmlspecialchars($row['Brief_Name']);
 		$this->Full_Name = htmlspecialchars($row['Full_Name']);
 
 		$query = "SELECT min(`Date_Begin_Work`) FROM `company` WHERE `GSZ_Id`={$id}";
 		$Date_Begin_Work = getCell($query);
-		$this->Date_Begin_Work = (is_null($Date_Begin_Work) ? "" : $Date_Begin_Work); 
+		$this->Date_Begin_Work = (is_null($Date_Begin_Work) ? "" : $Date_Begin_Work);
 
 		$query = "SELECT COUNT(*) FROM `company` WHERE `GSZ_Id`={$id}";
 		$NumberCompany = getCell($query);
@@ -58,24 +58,24 @@ class GSZ_Item
 
 		$this->Calc_limit_dates_Id = $result_array['Id'];
 		$Date_calc_limit = $result_array['Date_calc_limit'];
-		$this->Date_calc_limit = (is_null($Date_calc_limit) ? "" : $Date_calc_limit); 
+		$this->Date_calc_limit = (is_null($Date_calc_limit) ? "" : $Date_calc_limit);
 
 	}
 }
 
-class Company_Item 
+class Company_Item
 {
 	public $Id, $Name, $INN, $GSZ_Id, $OPF_Id, $OPF, $SNO_Id, $SNO;
-	
+
 	function __construct($Company_Id)
 	{
 		$query = "SELECT `A`.`Name` AS `Name`, `A`.`INN` AS `INN`, `A`.`GSZ_Id` AS `GSZ_Id`, `A`.`OPF_Id` AS `OPF_Id`, `A`.`SNO_Id` AS `SNO_Id`, `B`.`Brief_Name` AS `OPF`, ";
 		$query .= " `C`.`Brief_Name` AS `SNO`, `D`.`Brief_Name` AS  `GSZ_Name`, `A`.`Date_Registr`, `A`.`Date_Begin_Work`, `B`.`Is_Corporation` ";
 		$query .= "FROM `company` `A`, `OPF` `B`, `SNO` `C` , `GSZ` `D` ";
 		$query .= "WHERE `A`.`Id`={$Company_Id} AND (`A`.`OPF_Id`=`B`.`Id`) AND (`A`.`SNO_Id`=`C`.`Id`) AND (`A`.`GSZ_Id`=`D`.`Id`)";
-		
+
 		$row = getRow($query);
-		
+
 		$this->Id = $Company_Id;
 		$this->Name = htmlspecialchars($row['Name']);
 		$this->INN = $row['INN'];
@@ -85,8 +85,8 @@ class Company_Item
 		$this->SNO_Id = $row['SNO_Id'];
 		$this->OPF = $row['OPF'];
 		$this->SNO = $row['SNO'];
-		$this->Date_Registr = (is_null($row['Date_Registr']) ? "" : $row['Date_Registr']); 
-		$this->Date_Begin_Work = (is_null($row['Date_Begin_Work']) ? "" : $row['Date_Begin_Work']); 
+		$this->Date_Registr = (is_null($row['Date_Registr']) ? "" : $row['Date_Registr']);
+		$this->Date_Begin_Work = (is_null($row['Date_Begin_Work']) ? "" : $row['Date_Begin_Work']);
 		$this->Is_Corporation = $row['Is_Corporation'];
 	}
 }
@@ -112,7 +112,7 @@ function get_GSZ_set_with_calc_limit_date()
     . " `GSZ`, `company`,`calc_limit_dates`\n"
     . "WHERE `GSZ`.`Id`=`company`.`GSZ_Id` AND `GSZ`.`Id`=`calc_limit_dates`.`GSZ_Id` AND `GSZ`.`User_Id`=".get_current_user_id()."\n"
     . "GROUP BY `GSZ`.`Id`";
-	
+
 	$GSZ_set = getTable($query);
 	return $GSZ_set;
 }
@@ -138,12 +138,12 @@ function get_company_set($GSZ_Id)
     . " AND (`A`.`OPF_Id` = `B`.`Id`) \n"
     . " AND (`A`.`SNO_Id` = `C`.`Id`)"
 	. " AND (`User_Id`=".get_current_user_id().")";
-	
+
 	$company_set = getTable($query);
 	return $company_set;
 }
 
-function get_error_message() 
+function get_error_message()
 {
 	global $get;
 	if (isset($_GET['error']))
@@ -152,7 +152,7 @@ function get_error_message()
 		return NO_ERRORS_MESSAGE;
 }
 
-function get_warning_message() 
+function get_warning_message()
 {
 	global $get;
 	if (isset($_GET['warning']))
@@ -166,14 +166,14 @@ function get_OPF_Id_by_Name($OPF_Name)
 {
 	$query = 'SELECT `Id` FROM `OPF` WHERE `Brief_Name`="'.$OPF_Name.'"';
 	$OPF_Id = getCell($query);
-	return ($OPF_Id ? $OPF_Id : -1); 
+	return ($OPF_Id ? $OPF_Id : -1);
 }
 
 function get_SNO_Id_by_Name($SNO_Name)
 {
 	$query = 'SELECT `Id` FROM `SNO` WHERE `Brief_Name`="'.$SNO_Name.'"';
 	$SNO_Id = getCell($query);
-	return ($SNO_Id ? $SNO_Id : -1); 
+	return ($SNO_Id ? $SNO_Id : -1);
 }
 
 function get_OPF_names()
@@ -182,13 +182,13 @@ function get_OPF_names()
 	$array_OPF_names = [];
 	$query = 'SELECT `Brief_Name`, `INN_Length` FROM `OPF`';
 	$result_array = getTable($query);
-	if (!$result_array) 
+	if (!$result_array)
 		return $array_OPF_names;
 	foreach ($result_array as $row)
 	{
 		$array_OPF_names[$row['Brief_Name']]=$row['INN_Length'];
 	}
-	return $array_OPF_names;	
+	return $array_OPF_names;
 }
 
 function get_SNO_names()
@@ -202,7 +202,7 @@ function get_SNO_names()
 	{
 		$array_SNO_names[$row['Brief_Name']]=$row['Cred_Limit_Affect'];
 	}
-	return $array_SNO_names;	
+	return $array_SNO_names;
 }
 
 function fill_calc_limit_dates()
@@ -210,7 +210,7 @@ function fill_calc_limit_dates()
 	// Найдем все ГСЗ из таблицы GSZ, для которых не введена дата расчета кредитного лимита в таблице calc_limit_dates
 	$query = 'SELECT `GSZ`.`Id` FROM `GSZ` LEFT JOIN `calc_limit_dates` ON `GSZ`.`Id`=`calc_limit_dates`.`GSZ_Id` WHERE `calc_limit_dates`.`GSZ_Id` IS NULL;';
 	$GSZ_array = getCol($query);
-	// Всем найденным ГСЗ в качестве даты расчета кредитного лимита проставим текущую дату 
+	// Всем найденным ГСЗ в качестве даты расчета кредитного лимита проставим текущую дату
 	$data = [];
 	foreach ($GSZ_array as $GSZ_Id)
 	{
@@ -239,7 +239,7 @@ function get_Balance_Dates($Date_calc_limit, $is_Corporation = 0)
 		//Для ИП даты определения баланса: {Дата_расчета_лимита - 6 месяцев, Дата_расчета_лимита - 3 месяцеа, Дата_расчета_лимита }
 		$Date3 = $Date_calc_limit;
 	};
-	
+
 	$Date = new DateTime($Date3);
 	$Date->modify("-6 month");
 	$Balance_Dates[] = $Date->format("Y-m-d");
@@ -319,12 +319,12 @@ function get_Corporation_Balance_Part($Company_Id, $Balance_Date, $Type_Balance 
 			$article['Is_Editable_Value'] = (! $Section_article['Has_children']);
 
 			// Если статья баланса является дочерней, то название ее смещаем враво на два пробела
-			$prefix = ($Section_article['Parent_Code'] ? '&nbsp &nbsp' : ''); 
+			$prefix = ($Section_article['Parent_Code'] ? '&nbsp &nbsp' : '');
 			$article['Description'] = $prefix . htmlspecialchars($Section_article['Description']);
 
 			if ($Section_article['Has_children'])
 			{
-				// Если статья явлется составной, то вычисляем сумму значений всех статей, входящих в нее 
+				// Если статья явлется составной, то вычисляем сумму значений всех статей, входящих в нее
 				if ($is_Balance_Exists)
 					$query = "SELECT SUM(`Value`) FROM `Corp_Balance_Results` "
 					. "WHERE `Parent_Code` = '{$Section_article['Code']}' AND `Company_Id`={$Company_Id} AND `Date_Balance`='{$Balance_Date}' ";
@@ -339,7 +339,7 @@ function get_Corporation_Balance_Part($Company_Id, $Balance_Date, $Type_Balance 
 
 			$Balance_Active[] = $article;
 		}
-		
+
 		// Формирование записи для суммы раздела
 		// Находим код и название статьи для суммы раздела
 		$article = [];
@@ -353,7 +353,7 @@ function get_Corporation_Balance_Part($Company_Id, $Balance_Date, $Type_Balance 
 		$row = getRow($query);
 		$article['Code'] = $row['Code'];
 		$article['Description'] = "<b>".$row['Description']."</b>";
-		
+
 		// Находим сумму значений всех статей, входящих в текущий раздел
 		if ($is_Balance_Exists)
 			$query = "SELECT SUM(`Value`) FROM `Corp_Balance_Results` "
@@ -380,7 +380,7 @@ function get_Corporation_Balance_Part($Company_Id, $Balance_Date, $Type_Balance 
 	$row = getRow($query);
 	$article['Code'] = $row['Code'];
 	$article['Description'] = "<b>".$row['Description']."</b>";
-	
+
 	// Находим сумму значений всех статей, входящих в актив/пассив баланса
 	if ($is_Balance_Exists)
 		$query = "SELECT SUM(`Value`) FROM `Corp_Balance_Results` "
@@ -402,17 +402,17 @@ function delete_Balance_Values($Company_Id, $Balance_Date)
 {
 	global $mysqli;
 	$query = "DELETE FROM `Corp_Balance_Results` WHERE `Date_Balance`='{$Balance_Date}' AND `Company_Id`={$Company_Id}";
-    return $mysqli->query($query);	
+    return $mysqli->query($query);
 }
 
 function calculate_Balance($Company_Id, $Balance_Date, $Type_Balance = "active")
 {
 	// $Balance_Part=1 - актив, $Balance_Part=2 - пассив
 	$Balance_Part =(strtolower($Type_Balance) == "active" ? 1 : 2);
-	
+
 	$query = "SELECT SUM(`Value`) FROM `Corp_Balance_Results` "
 	. "WHERE `Balance_Part`={$Balance_Part} AND `Has_Children`=0 AND `Is_Section`=0 "
-	."AND `Is_Sum_Section`=0 AND `Is_Sum_Part`=0 AND `Company_Id`={$Company_Id} AND `Date_Balance`='{$Balance_Date}'";	
+	."AND `Is_Sum_Section`=0 AND `Is_Sum_Part`=0 AND `Company_Id`={$Company_Id} AND `Date_Balance`='{$Balance_Date}'";
 	$Balance = getCell($query);
 	return $Balance;
 }

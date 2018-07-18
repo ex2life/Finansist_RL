@@ -12,7 +12,7 @@ define('MYSQL_SERVER', 'localhost');
 /*
  * Пользователь, от имени которого подключаемся к базе данных
  */
-define('MYSQL_USER', 'root');
+define('MYSQL_USER', 'finansist');
 
 /*
  * Пароль к базе данных

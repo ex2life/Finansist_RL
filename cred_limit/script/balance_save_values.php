@@ -26,8 +26,8 @@ delete_Balance_Values($Company_Id, $Balance_Date);
 // Записываем в Corp_Balance_Results по одной записи для каждого кода
 foreach ($_POST as $code => $value) {
     // Обрабатываем в пришедших параметрах только коды статей баланса
-    if (!is_numeric($code)) continue;
-    
+    //if (!is_numeric($code)) continue;
+
     // Получаем строку для данного кода из справочника статей баланса Corp_Balance_Articles
     $query = "SELECT * FROM `{$Balance_Articles_table}` WHERE `Code`='{$code}'";
     $data = getRow($query);
@@ -37,10 +37,9 @@ foreach ($_POST as $code => $value) {
     $data['Value'] = $value;
     $data['Company_Id'] = $Company_Id;
     $data['Date_Balance'] = $Balance_Date;
-    
+
     addRow("Corp_Balance_Results", $data);
 }
 $url_param = ['Company_Id' => $Company_Id, 'date' => $Balance_Date];
 $url = HTML_PATH_BALANCE_FORM."?".http_build_query($url_param);
 redirect($url);
-

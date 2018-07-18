@@ -25,14 +25,21 @@ function main()
 				//Обновляем все присланные данные на проверку, если все ок то там пароль и обновим
 				$post_result = update_forget_pass($dbh, $_POST, $errors);
 				db_close($dbh);
+				if ($post_result=="hash_false")//Если с хэшем возникли проблемы (просрочен или изменен вручную)
+				{					
+				redirect('pass_link_fail.php');
+				}
 				if ($post_result) //Если все прошло отлично
 				{
 					//Отправляем на страницу авторизации
 					redirect('./');
 				} 
-				else //Если с хэшем возникли проблемы (просрочен или изменен вручную)
+				else //Если где то возникли ошибки
 				{
-					redirect('pass_link_fail.php');
+					// информация о пользователе заполнена неправильно, выведем страницу с ошибками
+					render('edit_forgot_pass_form', array(
+						'form' => $_POST, 'errors' => $errors
+					));
 				}
 		} 
 		else 

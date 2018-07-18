@@ -14,7 +14,7 @@ function is_Date($str)
 
 function xss($data)
 {
-    if (is_array($data)) 
+    if (is_array($data))
     {
         $escaped = array();
         foreach ($data as $key => $value)
@@ -34,17 +34,17 @@ function dump($var)
     echo '</pre>';
 }
 
-function getCell($query) 
+function getCell($query)
 {
     global $mysqli;
     $result_set = $mysqli->query($query);
     if (is_null($result_set) || !$result_set->num_rows) return false;
     $arr = array_values($result_set->fetch_assoc());
     $result_set->close();
-    return $arr[0]; 
+    return $arr[0];
 }
 
-function security($name_table,$name_Col,$id_sec) 
+function security($name_table,$name_Col,$id_sec)
 {
     global $mysqli;
 	$query = 'SELECT COUNT(*) FROM `'.$name_table.'` WHERE `'.$name_Col.'`='.$id_sec.' AND `User_Id`='.get_current_user_id().'';
@@ -56,7 +56,7 @@ function security($name_table,$name_Col,$id_sec)
 	{
 		return true;
 	}
-    return false; 
+    return false;
 }
 
 function getRow($query)
@@ -66,7 +66,7 @@ function getRow($query)
     if (is_null($result_set)) return false;
     $row = $result_set->fetch_assoc();
     $result_set->close();
-    return $row;    
+    return $row;
 }
 
 function getCol($query)
@@ -76,7 +76,7 @@ function getCol($query)
     $arr = [];
     if (is_null($result_set)) return false;
 
-    while (($row = $result_set->fetch_assoc()) !=false)    
+    while (($row = $result_set->fetch_assoc()) !=false)
     {
         $arr[]=reset($row);
     }
@@ -89,12 +89,12 @@ function getTable($query)
     global $mysqli;
     $result_set = $mysqli->query($query);
 	if ($result_set === false) {
-    echo mysql_error();
+    echo mysqli_error($mysqli);
 	return false;
 	}
     if (is_null($result_set)) return false;
     $result = array();
-    while (($row = $result_set->fetch_assoc()) !=false)    
+    while (($row = $result_set->fetch_assoc()) !=false)
     {
         $result[]=$row;
     }
@@ -105,19 +105,19 @@ function getTable($query)
 function addRow($table, $data)
 {
     global $mysqli;
-    
+
     $query = "INSERT INTO `$table` (";
     foreach ($data as $key => $value) $query .= "`$key`,";
     $query = substr($query, 0, -1);
     $query .=") VALUES (";
-    foreach ($data as $key=>$value) 
+    foreach ($data as $key=>$value)
     {
         if (is_null($value)) $query .= "null,";
         else $query .= "'". $mysqli->real_escape_string($value). "',";
     }
     $query = substr($query, 0, -1);
     $query .= ")";
-    
+
     $result_set = $mysqli->query($query);
     if (!$result_set) return false;
     return $mysqli->insert_id;
@@ -126,15 +126,15 @@ function addRow($table, $data)
 function setRow($table, $id, $data)
 {
     if (!is_numeric($id)) exit;
-    
+
     global $mysqli;
     $query = "UPDATE `$table` SET ";
-    foreach ($data as $key=>$value) 
+    foreach ($data as $key=>$value)
     {
         $query .= "`$key` = ";
         if (is_null($value)) $query .= "null, ";
         else $query .= "'". $mysqli->real_escape_string($value). "',";
-        
+
     }
     $query = substr($query, 0, -1);
     $query .= " WHERE `id`='$id'";

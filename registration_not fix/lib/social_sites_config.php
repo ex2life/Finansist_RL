@@ -6,24 +6,9 @@
 /*
  * Имя бота в телеграмм, у которого хранятся токены
  */
-if ($_SERVER['HTTP_HOST']=='finansist3261.com')
-{
-    define('Telegram_bot', 'finansist_authBot'); //настроено для finansist3261.com
-}
-if ($_SERVER['HTTP_HOST']=='finansist.andpop.ru')
-{
-    define('Telegram_bot', 'finansistAP_authBot'); //настроено для finansist.andpop.ru
-}
-if ($_SERVER['HTTP_HOST']=='finansist-online.000webhostapp.com')
-{
-    define('Telegram_bot', 'finansist000webhostapp_authBot'); //настроено для finansist-online.000webhostapp.com
-}
-if ($_SERVER['HTTP_HOST']=='finansist.ga')
-{
-    define('Telegram_bot', 'finansistGA_authBot'); //настроено для finansist.ga
-}
-
-
+define('Telegram_bot', 'finansist_authBot'); //настроено для finansist3261.com
+//define('Telegram_bot', 'finansistAP_authBot'); //настроено для finansist.andpop.ru
+//define('Telegram_bot', 'finansist000webhostapp_authBot'); //настроено для finansist-online.000webhostapp.com
 
 
 /*

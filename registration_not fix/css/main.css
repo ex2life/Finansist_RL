@@ -1,0 +1,153 @@
+body, html {
+    margin: 0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 12pt;
+}
+
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+.wrapper {
+	text-align: right;
+    margin: 0 auto;
+}
+
+.wrapper.form-container {
+    text-align: center;
+    padding: 5em 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: center;
+    padding: 0.3em 0.3em;
+}
+
+tr.odd {
+    background-color: #e7e3ff;
+}
+
+.form {
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    padding: 1.2em 2em;
+    display: inline-block;
+    text-align: left;
+}
+
+.form .row {
+    padding: 12px 0;
+}
+
+.form .row.header {
+    padding-top: 0;
+}
+
+.form .row.footer {
+    text-align: center;
+}
+
+#vk_auth{
+	margin: 0 auto;
+}
+
+.g-signin2{
+  width: 100%;
+}
+
+.g-signin2 > div{
+  margin: 0 auto;
+}
+
+.form h1 {
+    text-align: center;
+    font-size: 18pt;
+    margin: 0;
+}
+
+.form label {
+    width: 10em;
+    display: inline-block;
+}
+
+.form span.required {
+    color: red;
+}
+
+
+.form input[type="text"],
+.form input[type="date"],
+.form input[type="password"] {
+    font-size: 16pt;
+    width: 14em;
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 0.2em;
+}
+
+.form .error input[type="text"],
+.form .error input[type="password"] {
+    border-color: red;
+}
+
+.form .error-msg {
+    max-width: 34.1em;
+    text-align: center;
+    font-size: 10pt;
+    border: 2px solid red;
+    padding: 0.5em;
+    border-radius: 5px;
+    background-color: lightpink;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    font-size: 14pt;
+    padding: 0.3em 1em;
+    color: white;
+    background-color: #6f5499;
+    border: 1px solid gray;
+    border-radius: 3px;
+    transition: all 0.5s ease;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: #9a79d8;
+    transition: all 0.5s ease;
+}
+
+.info {
+    padding: 1.2em 2em;
+    display: inline-block;
+    text-align: left;
+}
+
+.info .row {
+    padding: 12px 0;
+}
+
+.info .title {
+    display: inline-block;
+    width: 11em;
+    text-align: right;
+    padding-right: 2em;
+}
+
+.info .value {
+    display: inline-block;
+    width: 11em;
+    font-weight: bold;
+}

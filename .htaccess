@@ -1,1 +1,2 @@
-AddHandler application/x-httpd-php .html .htm 
+AddHandler application/x-httpd-php .html .htm
+php_value error_reporting 1

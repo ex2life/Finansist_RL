@@ -52,7 +52,7 @@ td, th{
     border-top: 3px double #000;
     border-bottom: 3px double #000;
 	text-align: right;
-	font-weight: bold; 
+	font-weight: bold;
 }
 
 input.error {
@@ -78,4 +78,8 @@ label.error {
 
 .btn_margin {
 	margin-top: 20px;
+}
+
+#error_message_div {
+  display: none; 
 }
