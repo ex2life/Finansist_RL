@@ -26,14 +26,6 @@ function is_Date_Correct_for_Cred_Limit(Date_Begin_Work, Current_Date)
 
 }
 
-// function wait(ms){
-// 	var start = new Date().getTime();
-// 	var end   = start;
-// 	while(end < start + ms) {
-// 	  end = new Date().getTime();
-//    }
-//  }
-
 //**********************************************************************************************
 //Код выполняется после загрузки всего содержимого документа
 //**********************************************************************************************
@@ -89,7 +81,7 @@ $(document).ready(function() {
 		if (!is_Date_Correct_for_Cred_Limit(Date_Begin_Work, Current_Date))
 			alert("Внимание! \n Компания работает менее 6 полных месяцев, в расчете кредитного лимита участвовать не будет.");
 
-		if (Cred_Limit_Affect==0 ) {
+		if (Cred_Limit_Affect==0 ) 
 			alert('Внимание! \n  Компании, работающие по системе '+SNO+', не учитываются в расчете суммы кредита!');
 
 		if (!is_valid_INN()) {

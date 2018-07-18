@@ -80,6 +80,6 @@ label.error {
 	margin-top: 20px;
 }
 
-#error_message_div {
-  display: none; 
+#error_message_div, #warning_message_div{
+  display: none;
 }
