@@ -11,7 +11,7 @@ include_once('lib/social_sites_config.php');
 		auth2.signOut();
 	}
 	function onSignIn(googleUser) {
-		  
+
         // Useful data for your client-side scripts:
         var profile = googleUser.getBasicProfile();
         // The ID token you need to pass to your backend:
@@ -20,28 +20,28 @@ include_once('lib/social_sites_config.php');
 		xhr.open('POST', './users_setting.php');
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		xhr.onload = function() {
-			
-			if (xhr.responseText=="ok") 
-			{	
+
+			if (xhr.responseText=="ok")
+			{
 				signOut();
 				console.log('1');
 			document.location.replace("./users_setting.php");
 			}
 			else
-			{	
+			{
 				signOut();
 				console.log('2');
-				//document.location.replace("./register.php?reg=google&full_name="+profile.getName()+"&email="+profile.getEmail()+"&nickname="+profile.getEmail().split('@',1)+"&id="+profile.getId()+"google");  
+				//document.location.replace("./register.php?reg=google&full_name="+profile.getName()+"&email="+profile.getEmail()+"&nickname="+profile.getEmail().split('@',1)+"&id="+profile.getId()+"google");
 			}
 		};
 		xhr.send('idtoken=' + id_token+'&log=google');
-		
+
     }
 	function setTelegramStatus(status) {
 		console.log(status);
 	}
 	function checkTelegramStatus()
-	{	
+	{
 		var img2 = document.createElement("img");
 		img2.hidden = true;
 		var img = document.body.appendChild(img2);
@@ -74,14 +74,14 @@ include_once('lib/social_sites_config.php');
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link href="../css/bootstrap.min.css" rel="stylesheet"/> 
-	<link href="../css/style.css" rel="stylesheet"/> 
+	<link href="../css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="../css/style.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="google-signin-scope" content="profile email">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
-	
+
   <body  onload="checkTelegramStatus()">
   	<div class="container">
 		<header class="header">
@@ -89,7 +89,7 @@ include_once('lib/social_sites_config.php');
 		</header>
 		<div id="formlogin" class="jumbotron">
 	    <div class="form">
-				    <ul class="nav nav-tabs">
+		  <ul class="nav nav-tabs">
 				<li class="active"><a data-toggle="tab" href="#setting">Основные настройки</a></li>
 				<li><a data-toggle="tab" href="#password">Изменение пароля</a></li>
 				<li class="dropdown">
@@ -98,7 +98,7 @@ include_once('lib/social_sites_config.php');
 					<ul class="dropdown-menu">
 						<li ><a data-toggle="tab" href="#vk">VK</a></li>
 						<li id="telegram_button"  <?php if ($_COOKIE["Telegram_blocked"]=='yes'):?>hidden<?php endif; ?>><a data-toggle="tab" href="#telegram">Telegram</a></li>
-						<li ><a data-toggle="tab" href="#google">Google</a></li> 
+						<li ><a data-toggle="tab" href="#google">Google</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -203,7 +203,7 @@ include_once('lib/social_sites_config.php');
 			Авторизация "Google" уже подключена.
 		</div>
 		<?php endif;?>
-		
+
     </div>
 
   </div>
